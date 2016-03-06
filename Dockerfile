@@ -6,7 +6,7 @@ RUN pacman -Syu ruby php clang indent mono python python-pip python-setuptools g
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala/master/Goopfile
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala/master/package.json
 
-RUN pip install --no-cache-dir coala-bears --pre
+RUN pip install --no-cache-dir coala-bears coala --pre
 
 ENV GOPATH $HOME/Go
 ENV PATH $PATH:$GOPATH/bin:$GOROOT/bin
