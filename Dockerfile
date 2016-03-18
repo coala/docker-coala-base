@@ -5,7 +5,7 @@ RUN pacman -Syu ruby php clang indent mono python python-pip python-setuptools g
 
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
 
-RUN pip install --no-cache-dir coala-bears --pre
+RUN pip install --no-cache-dir coala-bears
 
 RUN npm install
 ENV PATH $PATH:/node_modules/.bin
