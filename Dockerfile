@@ -12,6 +12,7 @@ RUN pacman -Syu \
   python-pip \
   python-setuptools \
   ruby \
+  texlive-bin \
   wget \
   --noconfirm
 
