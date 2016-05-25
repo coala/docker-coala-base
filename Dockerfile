@@ -1,7 +1,19 @@
 FROM nfnty/arch-npm
 MAINTAINER Lasse Schuirmann lasse.schuirmann@gmail.com
 
-RUN pacman -Syu ruby php clang indent mono python python-pip python-setuptools git go wget --noconfirm
+RUN pacman -Syu \
+  clang \
+  git \
+  go \
+  indent \
+  mono \
+  php \
+  python \
+  python-pip \
+  python-setuptools \
+  ruby \
+  wget \
+  --noconfirm
 
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
 
