@@ -360,8 +360,55 @@ RUN pip install -r bears-test-deps.txt
 RUN pip install --no-cache-dir coala-bears
 WORKDIR /
 
+###############################################################################
+# OTHER DEPENDENCIES
+###############################################################################
+
+# add nltk data
+ADD https://github.com/coala-analyzer/coala/blob/master/.misc/deps.nltk.sh deps.nltk.sh
+RUN /bin/bash deps.nltk.sh
+
+# NPM commands (/opt/alex clashes with npm deps; package.json deps will be installed)
+RUN rm -rf /opt/alex
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
-
-
 RUN npm install
 ENV PATH $PATH:/node_modules/.bin
+
+# R commands
+RUN mkdir -p ~/.RLibrary
+RUN echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> .Rprofile
+RUN echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> .Rprofile
+RUN R -e "install.packages('lintr', dependencies=TRUE, quiet=TRUE, verbose=FALSE)"
+
+# GO commands
+RUN go get -u github.com/golang/lint/golint
+RUN go get -u golang.org/x/tools/cmd/goimports
+RUN go get -u sourcegraph.com/sqs/goreturns
+RUN go get -u golang.org/x/tools/cmd/gotype
+RUN go get -u github.com/kisielk/errcheck 
+
+# Ruby commands
+RUN bundle install
+
+# Dart Lint commands
+RUN if ! dartanalyzer -v &> /dev/null ; then wget -nc -O ~/dart-sdk.zip https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip; unzip -n ~/dart-sdk.zip -d ~/;fi
+
+# VHDL Bakalint Installation
+RUN wget "http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/bakalint-0.4.0.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ffpgalibre%2Ffiles%2Fbakalint%2F0.4.0%2F&ts=1461844926&use_mirror=netcologne" -O ~/bl.tar.gz
+RUN tar xf ~/bl.tar.gz -C ~/
+
+# Julia commands
+RUN julia -e "Pkg.add(\"Lint\")"
+
+# Lua commands
+RUN sudo luarocks install luacheck --deps-mode=none
+
+# Infer commands
+RUN if [ ! -e ~/infer-linux64-v0.7.0/infer/bin ]; then wget -nc -O ~/infer.tar.xz https://github.com/facebook/infer/releases/download/v0.7.0/infer-linux64-v0.7.0.tar.xz; tar xf ~/infer.tar.xz -C ~/; cd ~/infer-linux64-v0.7.0; opam init --y; opam update; opam pin add --yes --no-action infer .; opam install --deps-only --yes infer; ./build-infer.sh java; fi
+
+# PMD commands
+RUN if [ ! -e ~/pmd-bin-5.4.1/bin ]; then wget -nc -O ~/pmd.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip; unzip ~/pmd.zip -d ~/; fi
+
+# Tailor (Swift) commands
+RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh
+RUN sudo bash install.sh
