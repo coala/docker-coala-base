@@ -340,10 +340,28 @@ USER root
 WORKDIR /tmp/build/verilator
 RUN pacman --noconfirm -U *.tar.xz
 
+###############################################################################
+# PYTHON DEPENDENCIES
+###############################################################################
+
+RUN mkdir /tmp/python
+WORKDIR /tmp/python
+ADD https://github.com/coala-analyzer/coala/blob/master/requirements.txt coala-deps.txt
+RUN pip install -r coala-deps.txt
+ADD https://github.com/coala-analyzer/coala/blob/master/test-requirements.txt coala-test-deps.txt
+RUN pip install -r coala-test-deps.txt
+# this will install coala as it is a dependency of coala-bears
+ADD https://github.com/coala-analyzer/coala-bears/blob/master/requirements.txt bears-deps.txt
+RUN pip install -r bears-deps.txt
+ADD https://github.com/coala-analyzer/coala-bears/blob/master/test-requirements.txt bears-text-deps.txt
+RUN pip install -r bears-test-deps.txt
+
+# this will install coala-bears
+RUN pip install --no-cache-dir coala-bears
+WORKDIR /
 
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
 
-RUN pip install --no-cache-dir coala-bears
 
 RUN npm install
 ENV PATH $PATH:/node_modules/.bin
