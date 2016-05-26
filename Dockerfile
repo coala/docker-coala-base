@@ -2,15 +2,25 @@ FROM nfnty/arch-npm
 MAINTAINER Lasse Schuirmann lasse.schuirmann@gmail.com
 
 RUN pacman -Syu \
-  clang \
+  clang\
+  cppcheck \
+  espeak \
   git \
   go \
-  indent \
+  hlint \
+  indent\
+  julia \
+  luarocks \
+  m4 \
   mono \
+  perl \
   php \
   python \
+  python-dbus \
+  python-gobject \
   python-pip \
   python-setuptools \
+  r \
   ruby \
   texlive-bin \
   wget \
