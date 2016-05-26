@@ -346,14 +346,14 @@ RUN pacman --noconfirm -U *.tar.xz
 
 RUN mkdir /tmp/python
 WORKDIR /tmp/python
-ADD https://github.com/coala-analyzer/coala/blob/master/requirements.txt coala-deps.txt
+ADD coala-requirements.txt coala-deps.txt
 RUN pip install -r coala-deps.txt
-ADD https://github.com/coala-analyzer/coala/blob/master/test-requirements.txt coala-test-deps.txt
+ADD coala-test-requirements.txt coala-test-deps.txt
 RUN pip install -r coala-test-deps.txt
 # this will install coala as it is a dependency of coala-bears
-ADD https://github.com/coala-analyzer/coala-bears/blob/master/requirements.txt bears-deps.txt
+ADD coala-bears-requirements.txt bears-deps.txt
 RUN pip install -r bears-deps.txt
-ADD https://github.com/coala-analyzer/coala-bears/blob/master/test-requirements.txt bears-text-deps.txt
+ADD coala-bears-test-requirements.txt bears-text-deps.txt
 RUN pip install -r bears-test-deps.txt
 
 # this will install coala-bears
