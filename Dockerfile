@@ -32,6 +32,24 @@ RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   verilator \
   wget
 
+# Coala setup and python deps
+RUN pip install --upgrade pip
+RUN mkdir /tmp/coala
+WORKDIR /tmp/coala
+ADD coala-requirements.txt coala-deps.txt
+RUN pip install -r coala-deps.txt
+ADD coala-test-requirements.txt coala-test-deps.txt
+RUN pip install -r coala-test-deps.txt
+# this will install coala as it is a dependency of coala-bears
+ADD coala-bears-requirements.txt bears-deps.txt
+RUN pip install -r bears-deps.txt
+ADD coala-bears-test-requirements.txt bears-test-deps.txt
+RUN pip install -r bears-test-deps.txt
+
+# this will install coala-bears
+RUN pip install --no-cache-dir coala-bears
+WORKDIR /
+
 # GO setup
 RUN source /etc/profile.d/go.sh \
   && go get -u github.com/golang/lint/golint \
@@ -41,8 +59,6 @@ RUN source /etc/profile.d/go.sh \
   && go get -u github.com/kisielk/errcheck
 
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
-
-RUN pip install --no-cache-dir coala-bears
 
 RUN npm install
 ENV PATH $PATH:/node_modules/.bin
