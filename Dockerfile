@@ -16,6 +16,14 @@ RUN zypper update --no-confirm && zypper install --no-confirm \
   texlive-chktex \
   wget
 
+# GO setup
+RUN source /etc/profile.d/go.sh \
+  && RUN go get -u github.com/golang/lint/golint \
+  && RUN go get -u golang.org/x/tools/cmd/goimports \
+  && RUN go get -u sourcegraph.com/sqs/goreturns \
+  && RUN go get -u golang.org/x/tools/cmd/gotype \
+  && RUN go get -u github.com/kisielk/errcheck
+
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
 
 RUN pip install --no-cache-dir coala-bears
