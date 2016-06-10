@@ -58,7 +58,7 @@ RUN source /etc/profile.d/go.sh \
   && go get -u golang.org/x/tools/cmd/gotype \
   && go get -u github.com/kisielk/errcheck
 
+# NPM setup
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
-
 RUN npm install
 ENV PATH $PATH:/node_modules/.bin
