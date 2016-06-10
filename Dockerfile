@@ -13,6 +13,7 @@ RUN zypper update --no-confirm && zypper install --no-confirm \
   python3-pip \
   python3-setuptools \
   ruby \
+  texlive-chktex \
   wget
 
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
