@@ -1,7 +1,11 @@
 FROM opensuse:tumbleweed
 MAINTAINER Lasse Schuirmann lasse.schuirmann@gmail.com
 
-RUN zypper update --no-confirm && zypper install --no-confirm \
+RUN zypper addrepo -f \
+  http://download.opensuse.org/repositories/devel:/languages:/lua/openSUSE_Factory/ \
+  devel:languages:lua
+
+RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   cppcheck \
   espeak \
   dbus-1-python3 \
@@ -11,6 +15,7 @@ RUN zypper update --no-confirm && zypper install --no-confirm \
   indent \
   julia \
   libclang \
+  luarocks \
   m4 \
   mono \
   npm \
