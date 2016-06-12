@@ -14,6 +14,7 @@ RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   go \
   hlint \
   indent \
+  java \
   julia \
   libclang \
   lua \
@@ -91,3 +92,7 @@ RUN mkdir -p ~/.RLibrary
 RUN echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> .Rprofile
 RUN echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> .Rprofile
 RUN R -e "install.packages('lintr', dependencies=TRUE, quiet=TRUE, verbose=FALSE)"
+
+# Tailor (Swift) setup
+RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh
+RUN /bin/bash install.sh
