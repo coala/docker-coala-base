@@ -77,6 +77,11 @@ RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/pac
 RUN npm install
 ENV PATH $PATH:/node_modules/.bin
 
+# Nltk data
+RUN python3 -m nltk.downloader punkt
+RUN python3 -m nltk.downloader maxent_treebank_pos_tagger
+RUN python3 -m nltk.downloader averaged_perceptron_tagger
+
 # R setup
 RUN mkdir -p ~/.RLibrary
 RUN echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> .Rprofile
