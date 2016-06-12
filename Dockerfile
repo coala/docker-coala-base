@@ -7,6 +7,7 @@ RUN zypper addrepo -f \
 
 RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   cppcheck \
+  curl \
   espeak \
   dbus-1-python3 \
   git \
@@ -15,6 +16,8 @@ RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   indent \
   julia \
   libclang \
+  lua \
+  lua-devel \
   luarocks \
   m4 \
   mono \
@@ -29,6 +32,7 @@ RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   R-base \
   ruby \
   texlive-chktex \
+  unzip \
   verilator \
   wget
 
@@ -60,6 +64,9 @@ RUN source /etc/profile.d/go.sh \
   
 # Julia setup
 RUN julia -e "Pkg.add(\"Lint\")"
+
+# Lua commands
+RUN luarocks install luacheck
 
 # NPM setup
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
