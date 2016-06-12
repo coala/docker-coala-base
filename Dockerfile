@@ -54,6 +54,10 @@ RUN pip install -r bears-test-deps.txt
 RUN pip install --no-cache-dir coala-bears
 WORKDIR /
 
+# Dart Lint setup
+ADD https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip /root/dart-sdk.zip
+RUN unzip -n /root/dart-sdk.zip -d ~/
+
 # GO setup
 RUN source /etc/profile.d/go.sh \
   && go get -u github.com/golang/lint/golint \
