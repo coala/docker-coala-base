@@ -57,6 +57,9 @@ RUN source /etc/profile.d/go.sh \
   && go get -u sourcegraph.com/sqs/goreturns \
   && go get -u golang.org/x/tools/cmd/gotype \
   && go get -u github.com/kisielk/errcheck
+  
+# Julia setup
+RUN julia -e "Pkg.add(\"Lint\")"
 
 # NPM setup
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
