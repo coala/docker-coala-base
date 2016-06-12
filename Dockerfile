@@ -32,6 +32,7 @@ RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   python3-setuptools \
   R-base \
   ruby \
+  tar \
   texlive-chktex \
   unzip \
   verilator \
@@ -96,3 +97,7 @@ RUN R -e "install.packages('lintr', dependencies=TRUE, quiet=TRUE, verbose=FALSE
 # Tailor (Swift) setup
 RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh
 RUN /bin/bash install.sh
+
+# VHDL Bakalint Installation
+ADD http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/bakalint-0.4.0.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ffpgalibre%2Ffiles%2Fbakalint%2F0.4.0%2F&ts=1461844926&use_mirror=netcologne /root/bl.tar.gz
+RUN tar xf /root/bl.tar.gz -C /root/
