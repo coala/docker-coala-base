@@ -62,3 +62,9 @@ RUN source /etc/profile.d/go.sh \
 RUN wget https://raw.githubusercontent.com/coala-analyzer/coala-bears/master/package.json
 RUN npm install
 ENV PATH $PATH:/node_modules/.bin
+
+# R setup
+RUN mkdir -p ~/.RLibrary
+RUN echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> .Rprofile
+RUN echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> .Rprofile
+RUN R -e "install.packages('lintr', dependencies=TRUE, quiet=TRUE, verbose=FALSE)"
