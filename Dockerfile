@@ -82,6 +82,10 @@ RUN python3 -m nltk.downloader punkt
 RUN python3 -m nltk.downloader maxent_treebank_pos_tagger
 RUN python3 -m nltk.downloader averaged_perceptron_tagger
 
+#PMD setup
+ADD https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip /root/pmd.zip
+RUN unzip /root/pmd.zip -d /root/
+
 # R setup
 RUN mkdir -p ~/.RLibrary
 RUN echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> .Rprofile
