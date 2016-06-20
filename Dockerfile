@@ -1,11 +1,16 @@
 FROM opensuse:tumbleweed
 MAINTAINER Lasse Schuirmann lasse.schuirmann@gmail.com
 
+# Set the locale
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8 
+
 RUN zypper addrepo -f \
   http://download.opensuse.org/repositories/devel:/languages:/lua/openSUSE_Factory/ \
   devel:languages:lua
 
-RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
+RUN zypper --no-gpg-checks --non-interactive dist-upgrade && zypper install --no-confirm \
   cppcheck \
   curl \
   espeak \
@@ -39,21 +44,40 @@ RUN zypper --no-gpg-checks update --no-confirm && zypper install --no-confirm \
   wget
 
 # Coala setup and python deps
-RUN pip install --upgrade pip
-RUN mkdir /tmp/coala
-WORKDIR /tmp/coala
-ADD coala-requirements.txt coala-deps.txt
-RUN pip install -r coala-deps.txt
-ADD coala-test-requirements.txt coala-test-deps.txt
-RUN pip install -r coala-test-deps.txt
-# this will install coala as it is a dependency of coala-bears
-ADD coala-bears-requirements.txt bears-deps.txt
-RUN pip install -r bears-deps.txt
-ADD coala-bears-test-requirements.txt bears-test-deps.txt
-RUN pip install -r bears-test-deps.txt
+#RUN pip install --upgrade pip
+#RUN mkdir /tmp/coala
+#WORKDIR /tmp/coala
+#ADD coala-requirements.txt coala-deps.txt
+#RUN pip install -r coala-deps.txt
+#ADD coala-test-requirements.txt coala-test-deps.txt
+#RUN pip install -r coala-test-deps.txt
+## this will install coala as it is a dependency of coala-bears
+#ADD coala-bears-requirements.txt bears-deps.txt
+#RUN pip install -r bears-deps.txt
+#ADD coala-bears-test-requirements.txt bears-test-deps.txt
+#RUN pip install -r bears-test-deps.txt
+#
+## this will install coala-bears
+#RUN pip install --no-cache-dir coala-bears
+#WORKDIR /
 
-# this will install coala-bears
-RUN pip install --no-cache-dir coala-bears
+#Coala setup and python deps
+RUN pip3 install --upgrade pip
+
+RUN git clone https://github.com/coala-analyzer/coala.git
+WORKDIR /coala
+RUN git checkout release/0.6
+RUN pip3 install -r requirements.txt
+RUN pip3 install -r test-requirements.txt
+RUN pip3 install -e .
+WORKDIR /
+
+RUN git clone https://github.com/coala-analyzer/coala-bears.git
+WORKDIR /coala-bears
+RUN git checkout release/0.2
+RUN pip3 install -r requirements.txt
+RUN pip3 install -r test-requirements.txt
+RUN pip3 install -e .
 WORKDIR /
 
 # Dart Lint setup
