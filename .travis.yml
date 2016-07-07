@@ -1,0 +1,14 @@
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build -f Dockerfile -t coala-docker .
+  - docker images
+
+script:
+  - docker run -t -i coala-docker /bin/sh -c "cd /coala; python3 -m pytest -k 'not Dbus' --cov; cd /coala-bears; python3 -m pytest"
+
+notification:
+  - false
