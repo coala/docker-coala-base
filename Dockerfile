@@ -1,5 +1,5 @@
 FROM opensuse:tumbleweed
-MAINTAINER Lasse Schuirmann lasse.schuirmann@gmail.com
+MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 
 # Set the locale
 ENV LANG en_US.UTF-8  
