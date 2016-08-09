@@ -109,15 +109,15 @@ RUN opam switch 4.02.3 && \
   opam pin add -y merlin 'https://github.com/the-lambda-church/merlin.git#reason-0.0.1' && \
   opam pin add -y merlin_extend 'https://github.com/let-def/merlin-extend.git#reason-0.0.1' && \
   opam pin add -y reason 'https://github.com/facebook/reason.git#0.0.6'
-ADD https://github.com/facebook/infer/releases/download/v0.8.1/infer-linux64-v0.8.1.tar.xz infer-linux64-v0.8.1.tar.xz
-RUN sudo tar xf infer-linux64-v0.8.1.tar.xz
-WORKDIR /home/opam/infer-linux64-v0.8.1
+ADD https://github.com/facebook/infer/releases/download/v0.9.0/infer-linux64-v0.9.0.tar.xz infer-linux64-v0.9.0.tar.xz
+RUN sudo tar xf infer-linux64-v0.9.0.tar.xz
+WORKDIR /home/opam/infer-linux64-v0.9.0
 RUN opam pin add -y --no-action infer . && \
   opam install --deps-only --yes infer && \
   ./build-infer.sh java
 USER root
 WORKDIR /
-ENV PATH=$PATH:/home/opam/infer-linux64-v0.8.1/infer/bin
+ENV PATH=$PATH:/home/opam/infer-linux64-v0.9.0/infer/bin
 
 # Julia setup
 RUN julia -e "Pkg.add(\"Lint\")"
