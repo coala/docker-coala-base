@@ -66,7 +66,7 @@ RUN pip3 install --upgrade pip
 
 RUN git clone https://github.com/coala-analyzer/coala.git
 WORKDIR /coala
-RUN git checkout release/0.7
+RUN git checkout release/0.8
 RUN pip3 install -r requirements.txt
 RUN pip3 install -r test-requirements.txt
 RUN pip3 install -e .
@@ -74,7 +74,7 @@ WORKDIR /
 
 RUN git clone https://github.com/coala-analyzer/coala-bears.git
 WORKDIR /coala-bears
-RUN git checkout release/0.7
+RUN git checkout release/0.8
 RUN pip3 install -r requirements.txt
 RUN pip3 install -r test-requirements.txt
 RUN pip3 install -e .
