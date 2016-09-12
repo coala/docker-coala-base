@@ -120,7 +120,7 @@ RUN source /etc/profile.d/go.sh \
 # ENV PATH=$PATH:/home/opam/infer-linux64-v0.9.0/infer/bin
 
 # Julia setup
-RUN ["julia", "-e", "\\"Pkg.add(\\\\"Lint\\\\")\\""]
+# RUN ["julia", "-e", "\\"Pkg.add(\\\\"Lint\\\\")\\""]
 
 # Lua commands
 RUN luarocks install luacheck
