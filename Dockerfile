@@ -31,7 +31,7 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   java-1_8_0-openjdk-devel \
   julia \
   libcholmod-3_0_6 \
-  libclang \
+  libclang3_8 \
   libcurl-devel \
   libncurses5 \
   libopenssl-devel \
