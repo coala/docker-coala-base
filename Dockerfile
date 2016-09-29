@@ -2,8 +2,8 @@ FROM opensuse:tumbleweed
 MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 
 # Set the locale
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en  
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
 
 # Add repos for suitesparse and luarocks
 RUN zypper addrepo http://download.opensuse.org/repositories/home:stecue/openSUSE_Tumbleweed/home:stecue.repo
@@ -144,7 +144,8 @@ RUN npm install -g \
   remark-cli \
   tslint \
   typescript \
-  ramllint
+  ramllinti \
+  write-good
 
 # Nltk data
 RUN python3 -m nltk.downloader punkt
