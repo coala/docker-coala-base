@@ -144,7 +144,7 @@ RUN npm install -g \
   remark-cli \
   tslint \
   typescript \
-  ramllinti \
+  ramllint \
   write-good
 
 # Nltk data
