@@ -77,6 +77,7 @@ WORKDIR /
 
 RUN git clone https://github.com/coala-analyzer/coala-bears.git
 WORKDIR /coala-bears
+RUN pip3 install -r requirements.txt -r test-requirements.txt
 RUN git checkout release/0.8
 RUN pip3 install -r requirements.txt
 RUN pip3 install -r test-requirements.txt
