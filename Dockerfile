@@ -96,7 +96,6 @@ WORKDIR /
 
 RUN git clone https://github.com/coala/coala-bears.git
 WORKDIR /coala-bears
-
 RUN pip3 download -r requirements.txt -r test-requirements.txt
 RUN git checkout release/$COALA_VERSION
 RUN pip3 install -r requirements.txt
@@ -106,7 +105,12 @@ RUN pip3 install -e .
 # Remove Ruby directive from Gemfile as this image has 2.2.5
 RUN sed -i '/^ruby/d' Gemfile
 RUN bundle install --system
+WORKDIR /
 
+RUN git clone https://github.com/coala/coala-quickstart.git
+WORKDIR /coala-quickstart
+RUN pip3 install -r requirements.txt -r test-requirements.txt
+RUN pip3 install -e .
 WORKDIR /
 
 RUN pear install PHP_CodeSniffer
