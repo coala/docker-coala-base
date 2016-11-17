@@ -8,7 +8,7 @@ install:
   - docker images
 
 script:
-  - docker run -t -i coala-docker /bin/sh -c "cd /coala; python3 -m pytest -k 'not Dbus' --cov"
+  - docker run -t -i coala-docker /bin/sh -c "cd /coala; python3 -m pytest --cov"
 
 notifications:
   email: false
