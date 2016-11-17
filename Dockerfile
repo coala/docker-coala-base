@@ -20,7 +20,6 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   cppcheck \
   curl \
   espeak \
-  dbus-1-python3 \
   gcc-c++ \
   gcc-fortran \
   git \
