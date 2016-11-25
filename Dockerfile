@@ -5,6 +5,8 @@ MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 
+ENV COALA_VERSION 0.9
+
 # Add repos for suitesparse and luarocks
 RUN zypper addrepo http://download.opensuse.org/repositories/home:stecue/openSUSE_Tumbleweed/home:stecue.repo
 
@@ -48,6 +50,7 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   perl-Perl-Critic \
   php \
   python3 \
+  python3-dbm \
   python3-gobject \
   python3-pip \
   python3-setuptools \
@@ -69,7 +72,7 @@ RUN pip3 install --upgrade pip
 
 RUN git clone https://github.com/coala/coala.git
 WORKDIR /coala
-RUN git checkout release/0.8
+RUN git checkout release/$COALA_VERSION
 RUN pip3 install -r requirements.txt
 RUN pip3 install -r test-requirements.txt
 RUN pip3 install -e .
@@ -78,7 +81,7 @@ WORKDIR /
 RUN git clone https://github.com/coala/coala-bears.git
 WORKDIR /coala-bears
 RUN pip3 download -r requirements.txt -r test-requirements.txt
-RUN git checkout release/0.8
+RUN git checkout release/$COALA_VERSION
 RUN pip3 install -r requirements.txt
 RUN pip3 install -r test-requirements.txt
 RUN pip3 install -e .
