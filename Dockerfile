@@ -17,6 +17,9 @@ RUN zypper addrepo -f \
 # Use Leap for nodejs
 RUN zypper addrepo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Leap_42.2/devel:languages:nodejs.repo
 
+# Add repo for rubygem-bundler
+RUN zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo
+
 # Package dependencies
 RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   zypper --non-interactive install -t pattern devel_basis && \
@@ -60,7 +63,9 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   python3-setuptools \
   R-base \
   ruby \
+  ruby-common \
   ruby-devel \
+  ruby2.2-rubygem-bundler \
   ShellCheck \
   subversion \
   sudo \
@@ -89,6 +94,11 @@ RUN git checkout release/$COALA_VERSION
 RUN pip3 install -r requirements.txt
 RUN pip3 install -r test-requirements.txt
 RUN pip3 install -e .
+
+# Remove Ruby directive from Gemfile as this image has 2.2.5
+RUN sed -i '/^ruby/d' Gemfile
+RUN bundle install --system
+
 WORKDIR /
 
 # Dart Lint setup
@@ -158,14 +168,6 @@ RUN echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> ~/.Rprofile
 RUN echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> ~/.Rprofile
 RUN R -e "install.packages('lintr', dependencies=TRUE,  verbose=FALSE)"
 RUN R -e "install.packages('formatR', dependencies=TRUE, verbose=FALSE)"
-
-# Ruby gems
-# FIXME: we should use gemfile from coala
-RUN gem install rubocop sqlint scss_lint reek && \
-  ln -s /usr/bin/rubocop.ruby2.2 /usr/bin/rubocop && \
-  ln -s /usr/bin/scss-lint.ruby2.2 /usr/bin/scss-lint && \
-  ln -s /usr/bin/sqlint.ruby2.2 /usr/bin/sqlint && \
-  ln -s /usr/bin/reek.ruby2.2 /usr/bin/reek
 
 # Tailor (Swift) setup
 RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh
