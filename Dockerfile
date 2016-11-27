@@ -35,6 +35,7 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   flawfinder \
   gcc-c++ \
   gcc-fortran \
+  gdb \
   git \
   go \
   gsl \
@@ -60,6 +61,7 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   npm \
   perl \
   perl-Perl-Critic \
+  perl-SystemPerl-devel \
   php \
   php7-pear \
   php7-tokenizer \
@@ -70,6 +72,7 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   python3-pip \
   python3-setuptools \
   R-base \
+  rpm-build \
   ruby \
   ruby-common \
   ruby-devel \
@@ -82,6 +85,10 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   texlive-chktex \
   unzip \
   wget
+
+RUN wget http://download.opensuse.org/source/tumbleweed/repo/oss/suse/src/verilator-3.862-1.10.src.rpm
+RUN rpm -i verilator-3.862-1.10.src.rpm
+RUN rpmbuild -bi /usr/src/packages/SPECS/verilator.spec
 
 # Coala setup and python deps
 RUN pip3 install --upgrade pip
