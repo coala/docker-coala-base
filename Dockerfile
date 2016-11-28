@@ -68,7 +68,6 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   tar \
   texlive-chktex \
   unzip \
-  verilator \
   wget
 
 # Coala setup and python deps
