@@ -23,6 +23,8 @@ RUN \
   zypper removerepo 'NON-OSS' && \
   # Package dependencies
   time zypper --no-gpg-checks --non-interactive \
+      # nodejs 7
+      --plus-repo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Tumbleweed/ \
       # science contains latest Julia
       --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
       # luarocks
@@ -64,8 +66,8 @@ RUN \
     lua-devel \
     luarocks \
     m4 \
-    nodejs6 \
-    npm6 \
+    nodejs7 \
+    npm7 \
     # patch is used by Ruby gem pg_query
     patch \
     perl-Perl-Critic \
