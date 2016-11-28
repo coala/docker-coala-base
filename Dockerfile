@@ -84,6 +84,7 @@ WORKDIR /
 
 RUN git clone https://github.com/coala/coala-bears.git
 WORKDIR /coala-bears
+
 RUN pip3 download -r requirements.txt -r test-requirements.txt
 RUN git checkout release/$COALA_VERSION
 RUN pip3 install -r requirements.txt
@@ -137,23 +138,10 @@ RUN julia -e 'Pkg.add("Lint")'
 RUN luarocks install luacheck
 
 # NPM setup
-# FIXME: we should use package.json from coala
-RUN npm install -g \
-  alex \
-  autoprefixer \
-  bootlint \
-  coffeelint \
-  complexity-report \
-  csslint \
-  dockerfile_lint \
-  eslint \
-  jshint \
-  postcss-cli \
-  remark-cli \
-  tslint \
-  typescript \
-  ramllint \
-  write-good
+# Extract dependencies from coala-bear package.json
+# typescript is a peer dependency
+RUN npm install -g typescript \
+    $(sed -ne '/~/{s/^[^"]*"//;s/".*"~/@/;s/",*//;p}' coala-bears/package.json)
 
 # Nltk data
 RUN python3 -m nltk.downloader punkt
