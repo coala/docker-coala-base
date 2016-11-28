@@ -60,6 +60,9 @@ RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   perl \
   perl-Perl-Critic \
   php \
+  php7-pear \
+  php7-tokenizer \
+  php7-xmlwriter \
   python3 \
   python3-dbm \
   python3-gobject \
@@ -104,6 +107,8 @@ RUN sed -i '/^ruby/d' Gemfile
 RUN bundle install --system
 
 WORKDIR /
+
+RUN pear install PHP_CodeSniffer
 
 # Dart Lint setup
 ADD https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip /root/dart-sdk.zip
