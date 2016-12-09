@@ -167,9 +167,7 @@ RUN npm install -g typescript \
     $(sed -ne '/~/{s/^[^"]*"//;s/".*"~/@/;s/",*//;p}' coala-bears/package.json)
 
 # Nltk data
-RUN python3 -m nltk.downloader punkt
-RUN python3 -m nltk.downloader maxent_treebank_pos_tagger
-RUN python3 -m nltk.downloader averaged_perceptron_tagger
+RUN python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger
 
 # PMD setup
 ADD https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip /root/pmd.zip
