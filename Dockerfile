@@ -2,7 +2,7 @@ FROM opensuse:tumbleweed
 MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 
 # Set the locale
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en COALA_VERSION=0.9
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en COALA_VERSION=0.9 PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin
 
 # Add packaged flawfinder
 RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
@@ -111,7 +111,6 @@ RUN pear install PHP_CodeSniffer
 # Dart Lint setup
 RUN wget -q https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -O /root/dart-sdk.zip && \
   unzip -n /root/dart-sdk.zip -d ~/
-ENV PATH=$PATH:/root/dart-sdk/bin
 
 # GO setup
 RUN source /etc/profile.d/go.sh \
@@ -165,7 +164,6 @@ RUN python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_percept
 # PMD setup
 RUN wget -q https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip -O /root/pmd.zip && \
   unzip /root/pmd.zip -d /root/
-ENV PATH=$PATH:/root/pmd-bin-5.4.1/bin
 
 # R setup
 RUN mkdir -p ~/.RLibrary
