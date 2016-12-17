@@ -2,10 +2,7 @@ FROM opensuse:tumbleweed
 MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 
 # Set the locale
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-
-ENV COALA_VERSION 0.9
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en COALA_VERSION=0.9
 
 # Add packaged flawfinder
 RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo
