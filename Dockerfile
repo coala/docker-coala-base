@@ -80,32 +80,31 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
 # Coala setup and python deps
 RUN pip3 install --upgrade pip
 
-RUN git clone https://github.com/coala/coala.git
-WORKDIR /coala
-RUN git checkout release/$COALA_VERSION
-RUN pip3 install -r requirements.txt
-RUN pip3 install -r test-requirements.txt
-RUN pip3 install -e .
-WORKDIR /
+RUN cd / && \
+  git clone https://github.com/coala/coala.git && \
+  cd coala && \
+  git checkout release/$COALA_VERSION && \
+  pip3 install -r requirements.txt && \
+  pip3 install -r test-requirements.txt && \
+  pip3 install -e .
 
-RUN git clone https://github.com/coala/coala-bears.git
-WORKDIR /coala-bears
-RUN pip3 download -r requirements.txt -r test-requirements.txt
-RUN git checkout release/$COALA_VERSION
-RUN pip3 install -r requirements.txt
-RUN pip3 install -r test-requirements.txt
-RUN pip3 install -e .
+RUN cd / && \
+  git clone https://github.com/coala/coala-bears.git && \
+  cd coala-bears && \
+  pip3 download -r requirements.txt -r test-requirements.txt && \
+  git checkout release/$COALA_VERSION && \
+  pip3 install -r requirements.txt && \
+  pip3 install -r test-requirements.txt && \
+  pip3 install -e . && \
+  # Remove Ruby directive from Gemfile as this image has 2.2.5
+  sed -i '/^ruby/d' Gemfile && \
+  bundle install --system
 
-# Remove Ruby directive from Gemfile as this image has 2.2.5
-RUN sed -i '/^ruby/d' Gemfile
-RUN bundle install --system
-WORKDIR /
-
-RUN git clone https://github.com/coala/coala-quickstart.git
-WORKDIR /coala-quickstart
-RUN pip3 install -r requirements.txt -r test-requirements.txt
-RUN pip3 install -e .
-WORKDIR /
+RUN git clone https://github.com/coala/coala-quickstart.git && \
+  cd coala-quickstart && \
+  pip3 install -r requirements.txt -r test-requirements.txt && \
+  pip3 install -e . && \
+  cd ..
 
 RUN pear install PHP_CodeSniffer
 
