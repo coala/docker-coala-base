@@ -109,8 +109,8 @@ RUN git clone https://github.com/coala/coala-quickstart.git && \
 RUN pear install PHP_CodeSniffer
 
 # Dart Lint setup
-ADD https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip /root/dart-sdk.zip
-RUN unzip -n /root/dart-sdk.zip -d ~/
+RUN wget -q https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -O /root/dart-sdk.zip && \
+  unzip -n /root/dart-sdk.zip -d ~/
 ENV PATH=$PATH:/root/dart-sdk/bin
 
 # GO setup
@@ -163,8 +163,8 @@ RUN npm install -g typescript \
 RUN python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger
 
 # PMD setup
-ADD https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip /root/pmd.zip
-RUN unzip /root/pmd.zip -d /root/
+RUN wget -q https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip -O /root/pmd.zip && \
+  unzip /root/pmd.zip -d /root/
 ENV PATH=$PATH:/root/pmd-bin-5.4.1/bin
 
 # R setup
