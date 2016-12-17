@@ -5,80 +5,75 @@ MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en COALA_VERSION=0.9
 
 # Add packaged flawfinder
-RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo
-
-# Add repos for suitesparse and luarocks
-RUN zypper addrepo http://download.opensuse.org/repositories/home:stecue/openSUSE_Tumbleweed/home:stecue.repo
-
-RUN zypper addrepo -f \
-  http://download.opensuse.org/repositories/devel:/languages:/lua/openSUSE_Factory/ \
-  devel:languages:lua
-
-# Use Leap for nodejs
-RUN zypper addrepo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Leap_42.2/devel:languages:nodejs.repo
-
-# Add repo for rubygem-bundler
-RUN zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo
-
-# Package dependencies
-RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
-  zypper --non-interactive install -t pattern devel_basis && \
-  zypper --non-interactive install \
-  bzr \
-  cppcheck \
-  curl \
-  espeak \
-  expect \
-  flawfinder \
-  gcc-c++ \
-  gcc-fortran \
-  git \
-  go \
-  gsl \
-  mercurial \
-  hlint \
-  indent \
-  java \
-  java-1_8_0-openjdk-devel \
-  julia \
-  libcholmod-3_0_6 \
-  libclang3_8 \
-  libcurl-devel \
-  libncurses5 \
-  libopenssl-devel \
-  libpcre2-8-0 \
-  libxml2-tools \
-  lua \
-  lua-devel \
-  luarocks \
-  m4 \
-  mono \
-  nodejs \
-  npm \
-  perl \
-  perl-Perl-Critic \
-  php \
-  php7-pear \
-  php7-tokenizer \
-  php7-xmlwriter \
-  python3 \
-  python3-dbm \
-  python3-gobject \
-  python3-pip \
-  python3-setuptools \
-  R-base \
-  ruby \
-  ruby-common \
-  ruby-devel \
-  ruby2.2-rubygem-bundler \
-  ShellCheck \
-  subversion \
-  sudo \
-  suitesparse-devel \
-  tar \
-  texlive-chktex \
-  unzip \
-  wget
+RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
+  # Add repos for suitesparse and luarocks
+  zypper addrepo http://download.opensuse.org/repositories/home:stecue/openSUSE_Tumbleweed/home:stecue.repo && \
+  zypper addrepo -f \
+    http://download.opensuse.org/repositories/devel:/languages:/lua/openSUSE_Factory/ \
+    devel:languages:lua && \
+  # Use Leap for nodejs
+  zypper addrepo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Leap_42.2/devel:languages:nodejs.repo && \
+  # Add repo for rubygem-bundler
+  zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo && \
+  # Package dependencies
+  zypper --no-gpg-checks --non-interactive dist-upgrade && \
+    zypper --non-interactive install -t pattern devel_basis && \
+    zypper --non-interactive install \
+    bzr \
+    cppcheck \
+    curl \
+    espeak \
+    expect \
+    flawfinder \
+    gcc-c++ \
+    gcc-fortran \
+    git \
+    go \
+    gsl \
+    mercurial \
+    hlint \
+    indent \
+    java \
+    java-1_8_0-openjdk-devel \
+    julia \
+    libcholmod-3_0_6 \
+    libclang3_8 \
+    libcurl-devel \
+    libncurses5 \
+    libopenssl-devel \
+    libpcre2-8-0 \
+    libxml2-tools \
+    lua \
+    lua-devel \
+    luarocks \
+    m4 \
+    mono \
+    nodejs \
+    npm \
+    perl \
+    perl-Perl-Critic \
+    php \
+    php7-pear \
+    php7-tokenizer \
+    php7-xmlwriter \
+    python3 \
+    python3-dbm \
+    python3-gobject \
+    python3-pip \
+    python3-setuptools \
+    R-base \
+    ruby \
+    ruby-common \
+    ruby-devel \
+    ruby2.2-rubygem-bundler \
+    ShellCheck \
+    subversion \
+    sudo \
+    suitesparse-devel \
+    tar \
+    texlive-chktex \
+    unzip \
+    wget
 
 # Coala setup and python deps
 RUN pip3 install --upgrade pip
