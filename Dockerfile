@@ -166,15 +166,15 @@ RUN wget -q https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pm
   unzip /root/pmd.zip -d /root/
 
 # R setup
-RUN mkdir -p ~/.RLibrary
-RUN echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> ~/.Rprofile
-RUN echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> ~/.Rprofile
-RUN R -e "install.packages('lintr', dependencies=TRUE,  verbose=FALSE)"
-RUN R -e "install.packages('formatR', dependencies=TRUE, verbose=FALSE)"
+RUN mkdir -p ~/.RLibrary && \
+  echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> ~/.Rprofile && \
+  echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> ~/.Rprofile && \
+  R -e "install.packages('lintr', dependencies=TRUE,  verbose=FALSE)" && \
+  R -e "install.packages('formatR', dependencies=TRUE, verbose=FALSE)"
 
 # Tailor (Swift) setup
-RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh
-RUN /bin/bash install.sh
+RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh && \
+  /bin/bash install.sh
 
 # # VHDL Bakalint Installation
 # ADD http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/bakalint-0.4.0.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Ffpgalibre%2Ffiles%2Fbakalint%2F0.4.0%2F&ts=1461844926&use_mirror=netcologne /root/bl.tar.gz
