@@ -17,8 +17,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo && \
   # Package dependencies
   zypper --no-gpg-checks --non-interactive dist-upgrade && \
-    zypper --non-interactive install -t pattern devel_basis && \
-    zypper --non-interactive install \
+  zypper --non-interactive install -t pattern devel_basis && \
+  zypper --non-interactive install \
     bzr \
     cppcheck \
     curl \
