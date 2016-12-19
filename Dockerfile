@@ -2,7 +2,7 @@ FROM opensuse:tumbleweed
 MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 
 # Set the locale
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en COALA_VERSION=0.9 PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin
 
 # Add packaged flawfinder
 RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
@@ -83,7 +83,6 @@ RUN pip3 install --upgrade pip
 RUN cd / && \
   git clone https://github.com/coala/coala.git && \
   cd coala && \
-  git checkout release/$COALA_VERSION && \
   pip3 install -r requirements.txt && \
   pip3 install -r test-requirements.txt && \
   pip3 install -e .
@@ -91,8 +90,6 @@ RUN cd / && \
 RUN cd / && \
   git clone https://github.com/coala/coala-bears.git && \
   cd coala-bears && \
-  pip3 download -r requirements.txt -r test-requirements.txt && \
-  git checkout release/$COALA_VERSION && \
   pip3 install -r requirements.txt && \
   pip3 install -r test-requirements.txt && \
   pip3 install -e . && \
