@@ -44,7 +44,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     lua-devel \
     luarocks \
     m4 \
-    mono \
     nodejs \
     npm \
     patch \
