@@ -31,8 +31,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     mercurial \
     hlint \
     indent \
-    java \
-    java-1_8_0-openjdk-devel \
+    java-1_8_0-openjdk \
     julia \
     libcholmod-3_0_6 \
     libclang3_8 \
@@ -62,7 +61,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     python3-setuptools \
     R-base \
     ruby \
-    ruby-common \
     ruby-devel \
     ruby2.2-rubygem-bundler \
     ShellCheck \
