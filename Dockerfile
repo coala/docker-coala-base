@@ -16,9 +16,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   # Add repo for rubygem-bundler
   zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo && \
   # Package dependencies
-  zypper --no-gpg-checks --non-interactive dist-upgrade && \
-  zypper --non-interactive install -t pattern devel_basis && \
-  zypper --non-interactive install \
+  zypper --no-gpg-checks --non-interactive install \
     bzr \
     cppcheck \
     curl \
@@ -50,6 +48,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     mono \
     nodejs \
     npm \
+    patch \
     perl \
     perl-Perl-Critic \
     php \
