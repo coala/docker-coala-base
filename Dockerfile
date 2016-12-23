@@ -20,7 +20,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     bzr \
     cppcheck \
     curl \
-    espeak \
     expect \
     flawfinder \
     gcc-c++ \
