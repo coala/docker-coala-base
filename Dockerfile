@@ -2,7 +2,7 @@ FROM opensuse:tumbleweed
 MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 
 # Set the locale
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin:/coala-bears/node_modules/.bin
 
 # Add packaged flawfinder
 RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
@@ -88,9 +88,13 @@ RUN cd / && \
   pip3 install -r requirements.txt && \
   pip3 install -r test-requirements.txt && \
   pip3 install -e . && \
+  # NLTK data
+  python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger && \
   # Remove Ruby directive from Gemfile as this image has 2.2.5
   sed -i '/^ruby/d' Gemfile && \
-  bundle install --system
+  bundle install --system && \
+  # NPM dependencies
+  npm install
 
 RUN git clone https://github.com/coala/coala-quickstart.git && \
   cd coala-quickstart && \
@@ -144,15 +148,6 @@ RUN julia -e 'Pkg.add("Lint")'
 
 # Lua commands
 RUN luarocks install luacheck
-
-# NPM setup
-# Extract dependencies from coala-bear package.json
-# typescript is a peer dependency
-RUN npm install -g typescript \
-    $(sed -ne '/~/{s/^[^"]*"//;s/".*"~/@/;s/",*//;p}' coala-bears/package.json)
-
-# Nltk data
-RUN python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger
 
 # PMD setup
 RUN wget -q https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip -O /root/pmd.zip && \
