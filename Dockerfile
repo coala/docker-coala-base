@@ -1,5 +1,5 @@
 FROM opensuse:tumbleweed
-MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
+MAINTAINER Fabian Neuscasdhmidt fabian@neuschmidt.de
 
 # Set the locale
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin:/coala-bears/node_modules/.bin
