@@ -67,8 +67,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     suitesparse-devel \
     tar \
     texlive-chktex \
-    unzip \
-    wget && \
+    unzip && \
   # Clear zypper cache
   zypper clean -a
 
@@ -105,7 +104,7 @@ RUN git clone https://github.com/coala/coala-quickstart.git && \
 RUN pear install PHP_CodeSniffer
 
 # Dart Lint setup
-RUN wget -q https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -O /root/dart-sdk.zip && \
+RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -o /root/dart-sdk.zip && \
   unzip -n /root/dart-sdk.zip -d ~/ && \
   rm -rf /root/dart-sdk.zip
 
@@ -150,7 +149,7 @@ RUN julia -e 'Pkg.add("Lint")'
 RUN luarocks install luacheck
 
 # PMD setup
-RUN wget -q https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.4.1/pmd-bin-5.4.1.zip -O /root/pmd.zip && \
+RUN curl -fsSL https://github.com/pmd/pmd/releases/download/pmd_releases/5.4.1/pmd-bin-5.4.1.zip -o /root/pmd.zip && \
   unzip /root/pmd.zip -d /root/ && \
   rm -rf /root/pmd.zip
 
