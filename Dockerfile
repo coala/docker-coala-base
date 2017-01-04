@@ -4,6 +4,10 @@ MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 # Set the locale
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin:/coala-bears/node_modules/.bin:/root/bakalint-0.4.0
 
+# Create symlink for cache
+RUN mkdir -p /root/.local/share/coala && \
+  ln -s /root/.local/share/coala /cache
+
 # Add packaged flawfinder
 RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
   # Add repos for suitesparse and luarocks
