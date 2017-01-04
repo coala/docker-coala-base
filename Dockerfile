@@ -98,6 +98,8 @@ RUN git clone https://github.com/coala/coala-bears.git
 WORKDIR /coala-bears
 RUN pip3 download -r requirements.txt -r test-requirements.txt
 RUN git checkout release/$COALA_VERSION
+# language-check is an optional dependency in 0.9
+RUN pip3 install language-check~=0.8
 RUN pip3 install -r requirements.txt
 RUN pip3 install -r test-requirements.txt
 RUN pip3 install -e .
