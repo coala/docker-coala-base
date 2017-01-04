@@ -16,7 +16,6 @@ script:
       rm bears/c_languages/CSharpLintBear.py tests/c_languages/CSharpLintBearTest.py;
       rm bears/java/InferBear.py tests/java/InferBearTest.py;
       rm -r bears/verilog tests/verilog/;
-      rm -r bears/vhdl tests/vhdl/;
       python3 -m pytest --cov --cov-fail-under=100
     "
 
