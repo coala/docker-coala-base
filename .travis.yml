@@ -18,6 +18,8 @@ script:
       rm -r bears/verilog tests/verilog/;
       python3 -m pytest --cov --cov-fail-under=100
     "
-
+  - /bin/sh -c "! docker run coala-docker"
+  - docker run --volume=$(pwd)/.ci:/work --workdir=/work coala-docker
+  - ls -la ./.ci/.coafile
 notifications:
   email: false
