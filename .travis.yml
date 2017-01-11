@@ -19,7 +19,9 @@ script:
       python3 -m pytest --cov --cov-fail-under=100
     "
   - /bin/sh -c "! docker run coala-docker"
-  - docker run --volume=$(pwd)/.ci:/work --workdir=/work coala-docker
-  - ls -la ./.ci/.coafile
+  - docker run --user=$(id -u) --volume=$(pwd)/.ci/sample:/work --workdir=/work coala-docker
+  - ls -la ./.ci/sample/.coafile
+  - echo -e "[fail]\nbears = NoCommentsBear\nfile = **.py" >> ./.ci/sample/.coafile
+  - /bin/sh -c "! docker run --user=$(id -u) --volume=$(pwd)/.ci/sample:/work --volume=$(pwd)/.ci/bears:/additional_bears --workdir=/work coala-docker"
 notifications:
   email: false

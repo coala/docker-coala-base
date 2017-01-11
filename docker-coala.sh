@@ -4,6 +4,7 @@
 # This script is run if there's no command being passed
 
 PREFIX="\033[1;34m>> \033[0m"
+ADDITIONAL_BEARS_DIR="/additional_bears"
 
 function msg {
     echo -e "$PREFIX$@"
@@ -20,6 +21,9 @@ if [[ "$(pwd)" == "/" ]]; then
     msg "You have to bind your project to this container and" \
         "set the working directory to the container-side bind, like this:"
     msg "docker run coala/base --volume=\$(pwd):/work --workdir=/work [command]"
+    msg "You can also define an additional bear directory, like this:"
+    msg "docker run coala/base --volume=\$(pwd):/work" \
+        "--volume\$(pwd)/mybears:$ADDITIONAL_BEARS_DIR --workdir=/work [command]"
 
     exit 1
 fi
@@ -41,6 +45,13 @@ if [[ ! -f .coafile ]]; then
     coala-quickstart --non-interactive
 fi
 
+# Check if additional bears folder exists
+if [[ -d $ADDITIONAL_BEARS_DIR ]]; then
+    msg "Additional bears directory present," \
+        "Adding it to additional bear directories"
+    COALA_ARGS="$COALA_ARGS --bear-dirs $ADDITIONAL_BEARS_DIR"
+fi
+
 # Run coala non-interactively
 msg "Running coala non-interactively ..."
-coala --non-interactive
+exec coala $COALA_ARGS --non-interactive
