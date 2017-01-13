@@ -10,8 +10,7 @@ RUN mkdir -p /root/.local/share/coala && \
 
 # Add packaged flawfinder
 RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
-  # Add repos for suitesparse and luarocks
-  zypper addrepo http://download.opensuse.org/repositories/home:stecue/openSUSE_Tumbleweed/home:stecue.repo && \
+  # Add repo for luarocks
   zypper addrepo -f \
     http://download.opensuse.org/repositories/devel:/languages:/lua/openSUSE_Factory/ \
     devel:languages:lua && \
@@ -68,7 +67,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     ShellCheck \
     subversion \
     sudo \
-    suitesparse-devel \
     tar \
     texlive-chktex \
     unzip && \
