@@ -71,7 +71,19 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     texlive-chktex \
     unzip && \
   rpm -e -f --nodeps -v \
+    aaa_base \
+    dbus-1 \
+    dbus-1-x11 \
+    gio-branding-openSUSE \
+    kmod \
     libasan3 \
+    libthai-data \
+    lksctp-tools \
+    logrotate \
+    openssh \
+    openslp \
+    perl-Net-DBus \
+    postfix \
     python-cssselect \
     python-curses \
     python-javapackages \
@@ -81,8 +93,12 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     python-setuptools \
     python-six \
     python-xml \
+    R-core-doc \
+    sysconfig-netconfig \
+    systemd-presets-branding-openSUSE \
     texlive-gsftopk \
     texlive-kpathsea \
+    wicked-service \
     xorg-x11-fonts \
     xorg-x11-fonts-core \
     && \
