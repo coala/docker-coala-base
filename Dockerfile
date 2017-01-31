@@ -73,7 +73,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   rpm -e -f --nodeps -v \
     aaa_base \
     dbus-1 \
-    dbus-1-x11 \
     gio-branding-openSUSE \
     kmod \
     libasan3 \
