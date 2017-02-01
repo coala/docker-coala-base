@@ -119,7 +119,7 @@ RUN cd / && \
   cd coala-bears && \
   pip3 install -r requirements.txt && \
   pip3 install -r test-requirements.txt && \
-  pip3 install -e . && \
+  pip3 install -e '.[alldeps]' && \
   # NLTK data
   python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger && \
   # Remove Ruby directive from Gemfile as this image has 2.2.5
