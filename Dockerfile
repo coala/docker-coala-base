@@ -19,7 +19,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   # Add repo for rubygem-bundler
   zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo && \
   # Package dependencies
-  zypper --no-gpg-checks --non-interactive install \
+  time zypper --no-gpg-checks --non-interactive install \
     bzr \
     cppcheck \
     curl \
@@ -70,7 +70,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     tar \
     texlive-chktex \
     unzip && \
-  rpm -e -f --nodeps -v \
+  time rpm -e -f --nodeps -v \
     aaa_base \
     dbus-1 \
     gio-branding-openSUSE \
@@ -105,7 +105,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     xorg-x11-fonts-core \
     && \
   # Clear zypper cache
-  zypper clean -a
+  time zypper clean -a
 
 # Coala setup and python deps
 RUN pip3 install --upgrade pip
@@ -114,22 +114,22 @@ RUN cd / && \
   git clone https://github.com/coala/coala.git && \
   git clone https://github.com/coala/coala-bears.git && \
   git clone https://github.com/coala/coala-quickstart.git && \
-  pip3 install --no-cache-dir \
+  time pip3 install --no-cache-dir \
     -e /coala \
     -e '/coala-bears[alldeps]' \
     -e /coala-quickstart \
     -r /coala/test-requirements.txt && \
   cd coala-bears && \
   # NLTK data
-  python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger && \
+  time python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger && \
   # Remove Ruby directive from Gemfile as this image has 2.2.5
   sed -i '/^ruby/d' Gemfile && \
   # Ruby dependencies
-  bundle install --system && \
+  time bundle install --system && \
   # NPM dependencies
-  npm install
+  time npm install
 
-RUN pear install PHP_CodeSniffer
+RUN time pear install PHP_CodeSniffer
 
 # Dart Lint setup
 RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -o /root/dart-sdk.zip && \
@@ -137,7 +137,7 @@ RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/relea
   rm -rf /root/dart-sdk.zip
 
 # GO setup
-RUN source /etc/profile.d/go.sh && go get -u \
+RUN source /etc/profile.d/go.sh && time go get -u \
   github.com/golang/lint/golint \
   golang.org/x/tools/cmd/goimports \
   sourcegraph.com/sqs/goreturns \
@@ -171,10 +171,10 @@ RUN source /etc/profile.d/go.sh && go get -u \
 # ENV PATH=$PATH:/home/opam/infer-linux64-v0.9.0/infer/bin
 
 # Julia setup
-RUN julia -e 'Pkg.add("Lint")'
+RUN time julia -e 'Pkg.add("Lint")'
 
 # Lua commands
-RUN luarocks install luacheck
+RUN time luarocks install luacheck
 
 # PMD setup
 RUN curl -fsSL https://github.com/pmd/pmd/releases/download/pmd_releases/5.4.1/pmd-bin-5.4.1.zip -o /root/pmd.zip && \
@@ -185,11 +185,11 @@ RUN curl -fsSL https://github.com/pmd/pmd/releases/download/pmd_releases/5.4.1/p
 RUN mkdir -p ~/.RLibrary && \
   echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> ~/.Rprofile && \
   echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> ~/.Rprofile && \
-  R -e "install.packages(c('lintr', 'formatR'), dependencies=TRUE, verbose=FALSE)"
+  time R -e "install.packages(c('lintr', 'formatR'), dependencies=TRUE, verbose=FALSE)"
 
 # Tailor (Swift) setup
 RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh && \
-  /bin/bash install.sh
+  time /bin/bash install.sh
 
 # # VHDL Bakalint Installation
 RUN curl -L 'http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/bakalint-0.4.0.tar.gz' > /root/bl.tar.gz && \
