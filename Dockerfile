@@ -190,8 +190,7 @@ RUN curl -fsSL https://github.com/pmd/pmd/releases/download/pmd_releases/5.4.1/p
 RUN mkdir -p ~/.RLibrary && \
   echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> ~/.Rprofile && \
   echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> ~/.Rprofile && \
-  R -e "install.packages('lintr', dependencies=TRUE,  verbose=FALSE)" && \
-  R -e "install.packages('formatR', dependencies=TRUE, verbose=FALSE)"
+  R -e "install.packages(c('lintr', 'formatR'), dependencies=TRUE, verbose=FALSE)"
 
 # Tailor (Swift) setup
 RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh && \
