@@ -142,12 +142,12 @@ RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/relea
   rm -rf /root/dart-sdk.zip
 
 # GO setup
-RUN source /etc/profile.d/go.sh \
-  && go get -u github.com/golang/lint/golint \
-  && go get -u golang.org/x/tools/cmd/goimports \
-  && go get -u sourcegraph.com/sqs/goreturns \
-  && go get -u golang.org/x/tools/cmd/gotype \
-  && go get -u github.com/kisielk/errcheck
+RUN source /etc/profile.d/go.sh && go get -u \
+  github.com/golang/lint/golint \
+  golang.org/x/tools/cmd/goimports \
+  sourcegraph.com/sqs/goreturns \
+  golang.org/x/tools/cmd/gotype \
+  github.com/kisielk/errcheck
 
 # # Infer setup using opam
 # RUN useradd -ms /bin/bash opam && usermod -G wheel opam
