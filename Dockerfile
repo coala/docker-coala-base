@@ -112,30 +112,22 @@ RUN pip3 install --upgrade pip
 
 RUN cd / && \
   git clone https://github.com/coala/coala.git && \
-  cd coala && \
-  pip3 install -r requirements.txt && \
-  pip3 install -r test-requirements.txt && \
-  pip3 install -e .
-
-RUN cd / && \
   git clone https://github.com/coala/coala-bears.git && \
+  git clone https://github.com/coala/coala-quickstart.git && \
+  pip3 install --no-cache-dir \
+    -e /coala \
+    -e '/coala-bears[alldeps]' \
+    -e /coala-quickstart \
+    -r /coala/test-requirements.txt && \
   cd coala-bears && \
-  pip3 install -r requirements.txt && \
-  pip3 install -r test-requirements.txt && \
-  pip3 install -e '.[alldeps]' && \
   # NLTK data
   python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger && \
   # Remove Ruby directive from Gemfile as this image has 2.2.5
   sed -i '/^ruby/d' Gemfile && \
+  # Ruby dependencies
   bundle install --system && \
   # NPM dependencies
   npm install
-
-RUN git clone https://github.com/coala/coala-quickstart.git && \
-  cd coala-quickstart && \
-  pip3 install -r requirements.txt -r test-requirements.txt && \
-  pip3 install -e . && \
-  cd ..
 
 RUN pear install PHP_CodeSniffer
 
