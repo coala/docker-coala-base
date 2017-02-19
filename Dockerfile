@@ -74,6 +74,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     aaa_base \
     dbus-1 \
     gio-branding-openSUSE \
+    kbd \
     kmod \
     libasan3 \
     libthai-data \
@@ -94,9 +95,11 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     python-xml \
     R-core-doc \
     sysconfig-netconfig \
+    systemd \
     systemd-presets-branding-openSUSE \
     texlive-gsftopk \
     texlive-kpathsea \
+    util-linux-systemd \
     wicked-service \
     xorg-x11-fonts \
     xorg-x11-fonts-core \
