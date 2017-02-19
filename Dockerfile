@@ -169,6 +169,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     /usr/lib64/python2.7/site-packages/mercurial/hgweb/ \
     /usr/lib64/python2.7/site-packages/mercurial/templates/ \
     /usr/lib64/ruby/gems/2.2.0/gems/bundler-*/man/* \
+    /usr/lib64/R/library/translations/*/LC_MESSAGES/*.[mp]o* \
     /usr/lib64/R/library/*/po/* \
     /usr/lib64/R/library/*/doc/* \
     /usr/lib64/R/library/*/help/* \
@@ -179,6 +180,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     /usr/lib64/svn-javahl \
     /usr/share/emacs/ \
     /usr/share/xemacs/ \
+    /usr/share/locale/*/LC_MESSAGES/*.[mp]o* \
     && \
   find /usr/lib64/python2.7/ \
     \( -name 'test' -o -name 'tests' -o -name 'test_*' -o \
