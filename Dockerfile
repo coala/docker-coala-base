@@ -43,7 +43,10 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     libncurses5 \
     libopenssl-devel \
     libpcre2-8-0 \
+    # libxml2-tools provides xmllint
     libxml2-tools \
+    # linux-glibc-devel needed for Ruby native extensions
+    linux-glibc-devel \
     lua \
     lua-devel \
     luarocks \
@@ -51,10 +54,11 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     nodejs \
     npm \
     patch \
-    perl \
     perl-Perl-Critic \
     php \
     php7-pear \
+    # Needed for PHP CodeSniffer
+    php7-pear-Archive_Tar \
     php7-tokenizer \
     php7-xmlwriter \
     python3 \
@@ -74,18 +78,40 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     unzip && \
   time rpm -e -f --nodeps -v \
     aaa_base \
+    cron \
+    cronie \
     dbus-1 \
+    fdupes \
+    fontconfig \
+    fonts-config \
     gio-branding-openSUSE \
+    glib2-tools \
     kbd \
+    iproute2 \
     kmod \
     libasan3 \
+    libdrm_amdgpu1 \
+    libdrm_intel1 \
+    libdrm_nouveau2 \
+    libdrm_radeon1 \
+    libnl-config \
     libthai-data \
+    libwayland-server0 \
+    libxslt-tools \
+    libXss1 \
     lksctp-tools \
     logrotate \
+    ncurses-utils \
     openssh \
     openslp \
+    perl-File-ShareDir \
     perl-Net-DBus \
+    perl-Pod-Coverage \
+    perl-Test-Pod \
+    perl-Test-Pod-Coverage \
+    perl-X11-Protocol \
     postfix \
+    php7-zlib \
     python-cssselect \
     python-curses \
     python-javapackages \
@@ -96,13 +122,26 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     python-six \
     python-xml \
     R-core-doc \
+    rsync \
+    rsyslog \
+    sysconfig \
     sysconfig-netconfig \
+    syslog-service \
     systemd \
     systemd-presets-branding-openSUSE \
     texlive-gsftopk \
+    texlive-gsftopk-bin \
     texlive-kpathsea \
+    texlive-kpathsea-bin \
+    texlive-tetex-bin \
+    texlive-texconfig \
+    texlive-texconfig-bin \
+    texlive-texlive.infra \
+    texlive-updmap-map \
     util-linux-systemd \
+    wicked \
     wicked-service \
+    xhost \
     xorg-x11-fonts \
     xorg-x11-fonts-core \
     && \
