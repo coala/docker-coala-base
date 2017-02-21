@@ -38,6 +38,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     libcholmod-3_0_6 \
     libclang3_8 \
     libcurl-devel \
+    # icu needed by R stringi
+    libicu-devel \
     libncurses5 \
     libopenssl-devel \
     libpcre2-8-0 \
@@ -185,7 +187,9 @@ RUN curl -fsSL https://github.com/pmd/pmd/releases/download/pmd_releases/5.4.1/p
 RUN mkdir -p ~/.RLibrary && \
   echo '.libPaths( c( "~/.RLibrary", .libPaths()) )' >> ~/.Rprofile && \
   echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> ~/.Rprofile && \
-  time R -e "install.packages(c('lintr', 'formatR'), dependencies=TRUE, verbose=FALSE)"
+  export ICUDT_DIR=/usr/share/icu/57.1/ && \
+  time R -e "install.packages(c('lintr', 'formatR'), dependencies=TRUE, verbose=FALSE)" && \
+  unset ICUDT_DIR && export ICUDT_DIR
 
 # Tailor (Swift) setup
 RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh && \
