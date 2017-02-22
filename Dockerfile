@@ -110,8 +110,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   time zypper clean -a
 
 # Coala setup and python deps
-RUN pip3 install --upgrade pip
-
 RUN cd / && \
   git clone https://github.com/coala/coala.git && \
   git clone https://github.com/coala/coala-bears.git && \
