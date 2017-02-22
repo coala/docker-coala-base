@@ -106,6 +106,9 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     xorg-x11-fonts \
     xorg-x11-fonts-core \
     && \
+  rm -rf \
+    /usr/lib64/ruby/gems/2.2.0/gems/bundler-*/man/* \
+    && \
   # Clear zypper cache
   time zypper clean -a
 
@@ -125,7 +128,7 @@ RUN cd / && \
   # Remove Ruby directive from Gemfile as this image has 2.2.5
   sed -i '/^ruby/d' Gemfile && \
   # Ruby dependencies
-  time bundle install --system && \
+  time bundle install --system && rm -rf ~/.bundle && \
   # NPM dependencies
   time npm install
 
