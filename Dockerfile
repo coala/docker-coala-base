@@ -147,6 +147,12 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     && \
   rm -rf \
     /usr/lib64/ruby/gems/2.2.0/gems/bundler-*/man/* \
+    /usr/lib64/R/library/*/po/* \
+    /usr/lib64/R/library/*/doc/* \
+    /usr/lib64/R/library/*/help/* \
+    /usr/lib64/R/library/*/demo/* \
+    /usr/lib64/R/library/*/man/* \
+    /usr/lib64/R/library/*/NEWS \
     && \
   # Clear zypper cache
   time zypper clean -a
@@ -229,6 +235,19 @@ RUN mkdir -p ~/.RLibrary && \
   echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> ~/.Rprofile && \
   export ICUDT_DIR=/usr/share/icu/57.1/ && \
   time R -e "install.packages(c('lintr', 'formatR'), dependencies=TRUE, verbose=FALSE)" && \
+  rm -rf \
+    ~/.RLibrary/*/annouce/* \
+    ~/.RLibrary/*/po/* \
+    ~/.RLibrary/*/demo/* \
+    ~/.RLibrary/*/doc/* \
+    ~/.RLibrary/*/examples/* \
+    ~/.RLibrary/*/help/* \
+    ~/.RLibrary/*/html/* \
+    ~/.RLibrary/*/man/* \
+    ~/.RLibrary/*/tests/ \
+    ~/.RLibrary/*/NEWS \
+    ~/.RLibrary/Rcpp/unitTests/ \
+    && \
   unset ICUDT_DIR && export ICUDT_DIR
 
 # Tailor (Swift) setup
