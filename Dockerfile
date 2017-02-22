@@ -175,7 +175,7 @@ RUN cd / && \
   # Ruby dependencies
   time bundle install --system && rm -rf ~/.bundle && \
   # NPM dependencies
-  time npm install
+  time npm install && npm cache clean
 
 RUN time pear install PHP_CodeSniffer
 
