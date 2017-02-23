@@ -4,8 +4,12 @@ language: generic
 services:
   - docker
 
+# Set environment variable COALA_BRANCH=<branch> to override
+# the default.
+
 install:
-  - docker build -f Dockerfile -t coala-docker .
+  - export COALA_BRANCH=$(python guess_branch.py "$TRAVIS_BRANCH") && echo $COALA_BRANCH
+  - docker build -f Dockerfile --build-arg branch=$COALA_BRANCH -t coala-docker .
   - docker images
 
 script:
