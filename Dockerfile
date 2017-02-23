@@ -263,7 +263,8 @@ RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/t
 
 # # VHDL Bakalint Installation
 RUN curl -L 'http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/bakalint-0.4.0.tar.gz' > /root/bl.tar.gz && \
-  tar xf /root/bl.tar.gz -C /root/
+  tar xf /root/bl.tar.gz -C /root/ && \
+  rm -rf /root/bl.tar.gz
 
 # Entrypoint script
 ADD docker-coala.sh /usr/local/bin/
