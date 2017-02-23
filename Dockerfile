@@ -159,9 +159,9 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
 
 # Coala setup and python deps
 RUN cd / && \
-  git clone https://github.com/coala/coala.git && \
-  git clone https://github.com/coala/coala-bears.git && \
-  git clone https://github.com/coala/coala-quickstart.git && \
+  git clone --depth 1 https://github.com/coala/coala.git && \
+  git clone --depth 1 https://github.com/coala/coala-bears.git && \
+  git clone --depth 1 https://github.com/coala/coala-quickstart.git && \
   time pip3 install --no-cache-dir \
     -e /coala \
     -e '/coala-bears[alldeps]' \
