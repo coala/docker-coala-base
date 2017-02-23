@@ -24,7 +24,11 @@ script:
       rm bears/java/InferBear.py tests/java/InferBearTest.py;
       rm bears/haskell/GhcModBear.py tests/haskell/GhcModBearTest.py;
       rm -r bears/verilog tests/verilog/;
-      python3 -m pytest --cov --cov-fail-under=100
+      python3 -m pytest --cov --cov-fail-under=100;
+      cd /tmp;
+      svn co https://github.com/githubtraining/hellogitworld.git;
+      bzr branch lp:govcstestbzrrepo;
+      hg clone http://www.selenic.com/repo/hello;
     "
   - /bin/sh -c "! docker run coala-docker"
   - docker run --user=$(id -u) --volume=$(pwd)/.ci/sample:/work --workdir=/work coala-docker
