@@ -11,7 +11,9 @@ install:
 script:
   - >
     docker run -t -i coala-docker /bin/sh -c "
-      cd /coala; python3 -m pytest --cov --cov-fail-under=100;
+      set -e -x
+      export OS_NAME=posix;
+      cd /coala; python3 -m pytest;
       cd /coala-bears;
       rm bears/Constants.py;  # There are no tests covering this module
       rm bears/c_languages/CSharpLintBear.py tests/c_languages/CSharpLintBearTest.py;
