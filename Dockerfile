@@ -188,7 +188,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     \) -prune -exec rm -rf '{}' '+' \
     && \
   # Clear zypper cache
-  time zypper clean -a
+  time zypper clean -a && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # Coala setup and python deps
 RUN cd / && \
@@ -208,14 +209,16 @@ RUN cd / && \
   # Ruby dependencies
   time bundle install --system && rm -rf ~/.bundle && \
   # NPM dependencies
-  time npm install && npm cache clean
+  time npm install && npm cache clean && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
-RUN time pear install PHP_CodeSniffer
+RUN time pear install PHP_CodeSniffer && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # Dart Lint setup
-RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -o /root/dart-sdk.zip && \
-  unzip -n /root/dart-sdk.zip -d ~/ && \
-  rm -rf /root/dart-sdk.zip
+RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -o /tmp/dart-sdk.zip && \
+  unzip -n /tmp/dart-sdk.zip -d ~/ && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # GO setup
 RUN source /etc/profile.d/go.sh && time go get -u \
@@ -223,7 +226,8 @@ RUN source /etc/profile.d/go.sh && time go get -u \
   golang.org/x/tools/cmd/goimports \
   sourcegraph.com/sqs/goreturns \
   golang.org/x/tools/cmd/gotype \
-  github.com/kisielk/errcheck
+  github.com/kisielk/errcheck && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # # Infer setup using opam
 # RUN useradd -ms /bin/bash opam && usermod -G wheel opam
@@ -259,15 +263,17 @@ RUN time julia -e 'Pkg.add("Lint")' && \
     ~/.julia/v0.5/METADATA \
     ~/.julia/v0.5/*/.git \
     ~/.julia/v0.5/*/test \
-    ~/.julia/v0.5/*/docs
+    ~/.julia/v0.5/*/docs && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # Lua commands
-RUN time luarocks install luacheck
+RUN time luarocks install luacheck && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # PMD setup
-RUN curl -fsSL https://github.com/pmd/pmd/releases/download/pmd_releases/5.4.1/pmd-bin-5.4.1.zip -o /root/pmd.zip && \
-  unzip /root/pmd.zip -d /root/ && \
-  rm -rf /root/pmd.zip
+RUN curl -fsSL https://github.com/pmd/pmd/releases/download/pmd_releases/5.4.1/pmd-bin-5.4.1.zip -o /tmp/pmd.zip && \
+  unzip /tmp/pmd.zip -d ~/ && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # R setup
 RUN mkdir -p ~/.RLibrary && \
@@ -288,16 +294,18 @@ RUN mkdir -p ~/.RLibrary && \
     ~/.RLibrary/*/NEWS \
     ~/.RLibrary/Rcpp/unitTests/ \
     && \
-  unset ICUDT_DIR && export ICUDT_DIR
+  unset ICUDT_DIR && export ICUDT_DIR && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # Tailor (Swift) setup
 RUN curl -fsSL https://tailor.sh/install.sh | sed 's/read -r CONTINUE < \/dev\/tty/CONTINUE=y/' > install.sh && \
-  time /bin/bash install.sh
+  time /bin/bash install.sh && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # # VHDL Bakalint Installation
-RUN curl -L 'http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/bakalint-0.4.0.tar.gz' > /root/bl.tar.gz && \
-  tar xf /root/bl.tar.gz -C /root/ && \
-  rm -rf /root/bl.tar.gz
+RUN curl -L 'http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/bakalint-0.4.0.tar.gz' > /tmp/bl.tar.gz && \
+  tar xf /tmp/bl.tar.gz -C /root/ && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # Entrypoint script
 ADD docker-coala.sh /usr/local/bin/
