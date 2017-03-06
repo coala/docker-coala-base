@@ -127,7 +127,7 @@ RUN source /etc/profile.d/go.sh \
   && go get -u github.com/golang/lint/golint \
   && go get -u golang.org/x/tools/cmd/goimports \
   && go get -u sourcegraph.com/sqs/goreturns \
-  && go get -u golang.org/x/tools/cmd/gotype \
+  && go get -u github.com/jayvdb/gotype \
   && go get -u github.com/kisielk/errcheck
 
 # # Infer setup using opam
