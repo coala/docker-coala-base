@@ -223,7 +223,7 @@ RUN source /etc/profile.d/go.sh && time go get -u \
   github.com/golang/lint/golint \
   golang.org/x/tools/cmd/goimports \
   sourcegraph.com/sqs/goreturns \
-  golang.org/x/tools/cmd/gotype \
+  github.com/jayvdb/gotype \
   github.com/kisielk/errcheck && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
