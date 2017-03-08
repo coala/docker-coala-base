@@ -308,6 +308,7 @@ RUN curl -L 'http://downloads.sourceforge.net/project/fpgalibre/bakalint/0.4.0/b
 # Add checkstyle image
 RUN mkdir -p /root/.local/share/coala-bears/CheckstyleBear && \
   curl -fsSL https://github.com/coala/bear-runtime-deps/raw/master/CheckstyleBear/checkstyle-6.15-all.jar -o /root/.local/share/coala-bears/CheckstyleBear/checkstyle-6.15-all.jar && \
+  ln -s /root/.local/share/coala-bears/CheckstyleBear/checkstyle-6.15-all.jar /root/.local/share/coala-bears/CheckstyleBear/checkstyle.jar && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # Entrypoint script
