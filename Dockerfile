@@ -4,7 +4,7 @@ MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 ARG branch=master
 
 # Set the locale
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin:/coala-bears/node_modules/.bin:/root/bakalint-0.4.0
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin:/coala-bears/node_modules/.bin:/root/bakalint-0.4.0:/root/elm-format-0.18
 
 # Create symlink for cache
 RUN mkdir -p /root/.local/share/coala && \
@@ -47,6 +47,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     libpcre2-8-0 \
     # libxml2-tools provides xmllint
     libxml2-tools \
+    # needed for licensecheck
+    devscripts \
     # linux-glibc-devel needed for Ruby native extensions
     linux-glibc-devel \
     lua \
@@ -216,6 +218,11 @@ RUN time pear install PHP_CodeSniffer && \
 # Dart Lint setup
 RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/release/1.14.2/sdk/dartsdk-linux-x64-release.zip -o /tmp/dart-sdk.zip && \
   unzip -n /tmp/dart-sdk.zip -d ~/ && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
+
+RUN curl -fsSL https://github.com/avh4/elm-format/releases/download/0.5.2-alpha/elm-format-0.17-0.5.2-alpha-linux-x64.tgz -o /tmp/elm-format.tgz && \
+  mkdir ~/elm-format-0.18 && \
+  tar -xvzf /tmp/elm-format.tgz -C ~/elm-format-0.18 && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # GO setup
