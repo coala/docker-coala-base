@@ -318,6 +318,12 @@ RUN mkdir -p /root/.local/share/coala-bears/CheckstyleBear && \
   ln -s /root/.local/share/coala-bears/CheckstyleBear/checkstyle-6.15-all.jar /root/.local/share/coala-bears/CheckstyleBear/checkstyle.jar && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
+# Scalalint Installation
+RUN mkdir -p /root/.local/share/coala-bears/ScalaLintBear && \
+  curl -fsSL https://github.com/coala/bear-runtime-deps/raw/master/ScalaLintBear/scalastyle_2.10-0.8.0-batch.jar -o /root/.local/share/coala-bears/ScalaLintBear/scalastyle_2.10-0.8.0-batch.jar && \
+  ln -s /root/.local/share/coala-bears/ScalaLintBear/scalastyle_2.10-0.8.0-batch.jar /root/.local/share/coala-bears/ScalaLintBear/scalastyle.jar && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
+
 # Entrypoint script
 ADD docker-coala.sh /usr/local/bin/
 CMD ["/usr/local/bin/docker-coala.sh"]
