@@ -21,6 +21,7 @@ script:
       set -e -x;
       /work/pytest.sh;
       /work/vcs.sh;
+      /work/opensuse.sh;
     "
   # Verify MarkdownBear works outside of coala-bears directory.
   # See https://github.com/coala/coala-bears/issues/1235
