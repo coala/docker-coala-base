@@ -68,10 +68,9 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     # Used by bzr, mecurial, hgext, and flawfinder
     python \
     python3 \
+    # Needed for proselint
     python3-dbm \
-    python3-gobject \
     python3-pip \
-    python3-setuptools \
     R-base \
     ruby \
     ruby-devel \
@@ -90,8 +89,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     fdupes \
     fontconfig \
     fonts-config \
-    gio-branding-openSUSE \
-    glib2-tools \
     kbd \
     iproute2 \
     kmod \
