@@ -12,10 +12,6 @@ RUN mkdir -p /root/.local/share/coala && \
 
 # Add packaged flawfinder
 RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
-  # Add repo for luarocks
-  zypper addrepo -f \
-    http://download.opensuse.org/repositories/devel:/languages:/lua/openSUSE_Factory/ \
-    devel:languages:lua && \
   # Use Leap for nodejs
   zypper addrepo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Leap_42.2/devel:languages:nodejs.repo && \
   # Add repo for rubygem-bundler
@@ -26,6 +22,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   time zypper --no-gpg-checks --non-interactive \
       # science contains latest Julia
       --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
+      # luarocks
+      --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Tumbleweed/ \
       install \
     bzr \
     cppcheck \
