@@ -34,19 +34,18 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     gcc-fortran \
     git \
     go \
-    gsl \
     mercurial \
     hlint \
     indent \
     java-1_8_0-openjdk-headless \
     julia \
-    libcholmod-3_0_6 \
     libclang3_8 \
+    # libcurl-devel needed by R httr
     libcurl-devel \
     # icu needed by R stringi
     libicu-devel \
-    libncurses5 \
     libopenssl-devel \
+    # pcre needed by Julia runtime
     libpcre2-8-0 \
     # libxml2-tools provides xmllint
     libxml2-tools \
@@ -60,6 +59,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     m4 \
     nodejs \
     npm \
+    # patch is used by Ruby gem pg_query
     patch \
     perl-Perl-Critic \
     php \
@@ -80,7 +80,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     ruby2.2-rubygem-bundler \
     ShellCheck \
     subversion \
-    sudo \
     tar \
     texlive-chktex \
     unzip && \
@@ -124,6 +123,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     python-lxml \
     python-Pygments \
     python-pyxb \
+    python-rpm-macros \
     python-xml \
     R-core-doc \
     rsync \
