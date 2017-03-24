@@ -99,11 +99,22 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     libdrm_intel1 \
     libdrm_nouveau2 \
     libdrm_radeon1 \
+    libICE6 \
     libnl-config \
     libthai-data \
     libwayland-server0 \
+    libxcb1 libxcb-dri2-0 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-render0 libxcb-shm0 libxcb-sync1 libxcb-xfixes0 \
+    libX11-6 libX11-data libX11-xcb1 \
+    libXau6 \
+    libXdamage1 \
+    libXext6 \
+    libXfixes3 \
+    libXft2 \
+    libXmu6 \
+    libXmuu1 \
+    libXrender1 \
     libxslt-tools \
-    libXss1 \
+    libXss1 libXt6 libXxf86vm1 \
     lksctp-tools \
     logrotate \
     ncurses-utils \
