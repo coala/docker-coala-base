@@ -21,7 +21,10 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   # Add repo for rubygem-bundler
   zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo && \
   # Package dependencies
-  time zypper --no-gpg-checks --non-interactive install \
+  time zypper --no-gpg-checks --non-interactive \
+      # science contains latest Julia
+      --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
+      install \
     bzr \
     cppcheck \
     curl \
