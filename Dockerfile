@@ -181,6 +181,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     /usr/share/emacs/ \
     /usr/share/xemacs/ \
     /usr/share/locale/*/LC_MESSAGES/*.[mp]o* \
+    /var/log/ \
     && \
   find /usr/lib64/python2.7/ \
     \( -name 'test' -o -name 'tests' -o -name 'test_*' -o \
