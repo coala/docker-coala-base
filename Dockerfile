@@ -20,6 +20,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
   zypper addrepo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Leap_42.2/devel:languages:nodejs.repo && \
   # Add repo for rubygem-bundler
   zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo && \
+  # Remove unnecessary repos to avoid refreshes
+  zypper removerepo 'NON-OSS' && \
   # Package dependencies
   time zypper --no-gpg-checks --non-interactive \
       # science contains latest Julia
