@@ -10,9 +10,9 @@ services:
 install:
   - export COALA_BRANCH=$(python guess_branch.py "$TRAVIS_BRANCH") && echo $COALA_BRANCH
   - docker build -f Dockerfile --build-arg branch=$COALA_BRANCH -t coala-docker .
-  - docker images
 
 script:
+  - docker images
   - >
     docker run -t -i coala-docker /bin/sh -c "
       set -e -x
