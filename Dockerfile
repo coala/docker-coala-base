@@ -115,7 +115,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     libXrender1 \
     libxslt-tools \
     libXss1 libXt6 libXxf86vm1 \
-    lksctp-tools \
     logrotate \
     ncurses-utils \
     openssh \
