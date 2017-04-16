@@ -74,6 +74,7 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     # Needed for proselint
     python3-dbm \
     python3-pip \
+    python3-devel \
     R-base \
     ruby \
     ruby-devel \
