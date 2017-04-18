@@ -30,6 +30,14 @@ script:
       bzr branch lp:govcstestbzrrepo;
       hg clone https://bitbucket.org/fracai/empty-hg;
     "
+  # Verify MarkdownBear works outside of coala-bears directory.
+  # See https://github.com/coala/coala-bears/issues/1235
+  - >
+    docker run -t -i coala-docker /bin/sh -c "
+      cd /tmp;
+      echo foo > foo.md;
+      coala --non-interactive --no-config --bears MarkdownBear --files foo.md;
+    "
   - /bin/sh -c "! docker run coala-docker"
   - docker run --volume=$(pwd)/.ci/sample:/work --workdir=/work coala-docker
   - ls -la ./.ci/sample/.coafile
