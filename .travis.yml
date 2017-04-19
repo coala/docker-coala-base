@@ -28,7 +28,7 @@ script:
       cd /tmp;
       svn co https://github.com/githubtraining/hellogitworld.git;
       bzr branch lp:govcstestbzrrepo;
-      hg clone http://www.selenic.com/repo/hello;
+      hg clone https://bitbucket.org/fracai/empty-hg;
     "
   - /bin/sh -c "! docker run coala-docker"
   - docker run --volume=$(pwd)/.ci/sample:/work --workdir=/work coala-docker
