@@ -20,9 +20,6 @@ RUN zypper addrepo -f \
 # Use Leap for nodejs
 RUN zypper addrepo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Leap_42.2/devel:languages:nodejs.repo
 
-# Add repo for rubygem-bundler
-RUN zypper addrepo http://download.opensuse.org/repositories/home:AtastaChloeD:ChiliProject/openSUSE_Factory/home:AtastaChloeD:ChiliProject.repo
-
 # Package dependencies
 RUN zypper --no-gpg-checks --non-interactive dist-upgrade && \
   zypper --non-interactive install -t pattern devel_basis && \
