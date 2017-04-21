@@ -1,5 +1,5 @@
 FROM opensuse:tumbleweed
-MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
+MAINTAINER Fabian Neuscasdhmidt fabian@neuschmidt.de
 
 ARG branch=master
 
