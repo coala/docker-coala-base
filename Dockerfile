@@ -65,6 +65,9 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     perl-Perl-Critic \
     php \
     php7-pear \
+    # Needed for PHPMD
+    php7-dom \
+    php7-imagick \
     # Needed for PHP CodeSniffer
     php7-pear-Archive_Tar \
     php7-tokenizer \
@@ -217,6 +220,9 @@ RUN cd / && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 RUN time pear install PHP_CodeSniffer && \
+  pear channel-discover pear.phpmd.org && \
+  pear channel-discover pear.pdepend.org && \
+  pear install --alldeps phpmd/PHP_PMD && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # Dart Lint setup
