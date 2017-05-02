@@ -6,10 +6,13 @@ services:
 
 # Set environment variable COALA_BRANCH=<branch> to override
 # the default.
+env:
+  global:
+    - SOURCE_BRANCH=$TRAVIS_BRANCH
+    - IMAGE_NAME=coala-docker
 
 install:
-  - export COALA_BRANCH=$(python guess_branch.py "$TRAVIS_BRANCH") && echo $COALA_BRANCH
-  - docker build -f Dockerfile --build-arg branch=$COALA_BRANCH -t coala-docker .
+  - hooks/build
 
 script:
   - docker images
