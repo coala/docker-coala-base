@@ -2,6 +2,7 @@ FROM opensuse:tumbleweed
 MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
 
 ARG branch=master
+RUN echo branch=$branch
 
 # Set the locale
 ENV LANG=en_US.UTF-8 \
