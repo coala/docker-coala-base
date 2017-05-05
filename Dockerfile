@@ -241,6 +241,7 @@ RUN source /etc/profile.d/go.sh && time go get -u \
   golang.org/x/tools/cmd/goimports \
   sourcegraph.com/sqs/goreturns \
   golang.org/x/tools/cmd/gotype \
+  github.com/BurntSushi/toml/cmd/tomlv \
   github.com/kisielk/errcheck && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
