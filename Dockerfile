@@ -139,7 +139,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     sysconfig-netconfig \
     syslog-service \
     systemd \
-    systemd-presets-branding-openSUSE \
     texlive-gsftopk \
     texlive-gsftopk-bin \
     texlive-kpathsea \
