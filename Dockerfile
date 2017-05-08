@@ -7,7 +7,7 @@ RUN echo branch=$branch
 # Set the locale
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
-    PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin:/coala-bears/node_modules/.bin:/root/bakalint-0.4.0:/root/elm-format-0.18 \
+    PATH=$PATH:/root/pmd-bin-5.4.1/bin:/root/dart-sdk/bin:/coala-bears/node_modules/.bin:/root/bakalint-0.4.0:/root/elm-format-0.18:/root/phpmd \
     NODE_PATH=/coala-bears/node_modules
 
 # Create symlink for cache
@@ -233,6 +233,14 @@ RUN curl -fsSL https://storage.googleapis.com/dart-archive/channels/stable/relea
 RUN curl -fsSL https://github.com/avh4/elm-format/releases/download/0.5.2-alpha/elm-format-0.17-0.5.2-alpha-linux-x64.tgz -o /tmp/elm-format.tgz && \
   mkdir ~/elm-format-0.18 && \
   tar -xvzf /tmp/elm-format.tgz -C ~/elm-format-0.18 && \
+  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
+
+# phpmd Installation
+RUN curl -fsSL http://static.phpmd.org/php/latest/phpmd.phar -o /tmp/phpmd.phar && \
+  mkdir ~/phpmd && \
+  chmod +x /tmp/phpmd.phar && \
+  cp /tmp/phpmd.phar ~/phpmd/phpmd && \
+  mv /tmp/phpmd.phar /tmp/phpmd && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # GO setup
