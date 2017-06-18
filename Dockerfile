@@ -100,7 +100,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     kbd \
     iproute2 \
     kmod \
-    libasan3 \
     libICE6 \
     libnl-config \
     libthai-data \
@@ -112,7 +111,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     libXmu6 \
     libXmuu1 \
     libXrender1 \
-    libxslt-tools \
     libXss1 libXt6 \
     lksctp-tools \
     logrotate \
@@ -128,8 +126,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     postfix \
     php7-zlib \
     python-curses \
-    python-javapackages \
-    python-pyxb \
     python-rpm-macros \
     python-xml \
     R-core-doc \
