@@ -49,8 +49,10 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     libopenssl-devel \
     # pcre needed by Julia runtime
     libpcre2-8-0 \
+    libxml2-devel \
     # libxml2-tools provides xmllint
     libxml2-tools \
+    libxslt-devel \
     # needed for licensecheck
     devscripts \
     # linux-glibc-devel needed for Ruby native extensions
