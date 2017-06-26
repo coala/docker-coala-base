@@ -14,8 +14,11 @@ ENV LANG=en_US.UTF-8 \
 RUN mkdir -p /root/.local/share/coala && \
   ln -s /root/.local/share/coala /cache
 
-# Add packaged flawfinder
-RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/home:illuusio.repo && \
+
+RUN \
+  zypper addlock \
+    postfix \
+    && \
   # Remove unnecessary repos to avoid refreshes
   zypper removerepo 'NON-OSS' && \
   # Package dependencies
@@ -24,6 +27,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
       --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
       # luarocks
       --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Tumbleweed/ \
+      # flawfinder
+      --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
       install \
     bzr \
     cppcheck \
@@ -98,10 +103,8 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     fontconfig \
     fonts-config \
     kbd \
-    iproute2 \
     kmod \
     libICE6 \
-    libnl-config \
     libthai-data \
     libxcb1 libxcb-render0 libxcb-shm0 \
     libX11-6 libX11-data \
@@ -123,17 +126,12 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     perl-Test-Pod \
     perl-Test-Pod-Coverage \
     perl-X11-Protocol \
-    postfix \
     php7-zlib \
     python-curses \
     python-rpm-macros \
     python-xml \
     R-core-doc \
     rsync \
-    rsyslog \
-    sysconfig \
-    sysconfig-netconfig \
-    syslog-service \
     systemd \
     texlive-gsftopk \
     texlive-gsftopk-bin \
@@ -144,9 +142,6 @@ RUN zypper addrepo http://download.opensuse.org/repositories/home:illuusio/openS
     texlive-texconfig-bin \
     texlive-texlive.infra \
     texlive-updmap-map \
-    util-linux-systemd \
-    wicked \
-    wicked-service \
     xhost \
     xorg-x11-fonts \
     xorg-x11-fonts-core \
