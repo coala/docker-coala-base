@@ -37,6 +37,9 @@ RUN \
     flawfinder \
     gcc-c++ \
     gcc-fortran \
+    ghc \
+    ghc-cabal-helper \
+    ghc-mod \
     git \
     go \
     mercurial \
