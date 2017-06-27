@@ -17,21 +17,10 @@ install:
 script:
   - docker images
   - >
-    docker run -t -i coala-docker /bin/sh -c "
-      set -e -x
-      export OS_NAME=posix;
-      cd /coala; python3 -m pytest;
-      cd /coala-bears;
-      rm bears/Constants.py;  # There are no tests covering this module
-      rm bears/c_languages/CSharpLintBear.py tests/c_languages/CSharpLintBearTest.py;
-      rm bears/java/InferBear.py tests/java/InferBearTest.py;
-      rm bears/haskell/GhcModBear.py tests/haskell/GhcModBearTest.py;
-      rm -r bears/verilog tests/verilog/;
-      python3 -m pytest --cov --cov-fail-under=100;
-      cd /tmp;
-      svn co https://github.com/githubtraining/hellogitworld.git;
-      bzr branch lp:govcstestbzrrepo;
-      hg clone https://bitbucket.org/fracai/empty-hg;
+    docker run -t -i --volume=$(pwd)/tests:/work coala-docker /bin/sh -c "
+      set -e -x;
+      /work/pytest.sh;
+      /work/vcs.sh;
     "
   # Verify MarkdownBear works outside of coala-bears directory.
   # See https://github.com/coala/coala-bears/issues/1235
