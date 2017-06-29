@@ -65,11 +65,11 @@ RUN \
     luarocks \
     m4 \
     nodejs6 \
-    npm \
+    npm6 \
     # patch is used by Ruby gem pg_query
     patch \
     perl-Perl-Critic \
-    php \
+    php7 \
     php7-pear \
     # Needed for PHPMD
     php7-dom \
