@@ -31,7 +31,7 @@ RUN \
       --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Factory/ \
       # flawfinder
       --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
-      install \
+      install --replacefiles \
     bzr \
     cppcheck \
     curl \
