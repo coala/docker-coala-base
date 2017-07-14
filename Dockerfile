@@ -29,6 +29,8 @@ RUN \
       --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
       # luarocks
       --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Factory/ \
+      # ruby 2.2
+      --plus-repo http://download.opensuse.org/repositories/devel:languages:ruby/openSUSE_Tumbleweed/ \
       # flawfinder
       --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
       # astyle
@@ -92,8 +94,8 @@ RUN \
     python3-pip \
     python3-devel \
     R-base \
-    ruby \
-    ruby-devel \
+    ruby2.2 \
+    ruby2.2-devel \
     ruby2.2-rubygem-bundler \
     ShellCheck \
     subversion \
