@@ -136,7 +136,11 @@ RUN \
     perl-X11-Protocol \
     php7-zlib \
     python-curses \
+    python2-packaging \
+    python2-Pygments \
+    python2-pyparsing \
     python-rpm-macros \
+    python2-setuptools \
     python-xml \
     R-core-doc \
     rsync \
