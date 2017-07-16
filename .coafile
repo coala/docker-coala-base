@@ -1,3 +1,10 @@
+[shell]
+files = hooks/*, tests/*.sh
+bears = LineLengthBear, SpaceConsistencyBear, ShellCheckBear
+shell = bash
+max_line_length = 79
+use_spaces = True
+
 [commit]
 bears = GitCommitBear
 shortlog_trailing_period = False

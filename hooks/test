@@ -37,3 +37,11 @@ echo -e "[fail]\nbears = NoCommentsBear\nfile = **.py" >> ./.ci/sample/.coafile
 ! docker run --volume="$(pwd)/.ci/sample:/work" \
              --volume="$(pwd)/.ci/bears:/additional_bears" \
              --workdir=/work "$IMAGE_NAME"
+
+# Run coala
+# https://github.com/coala/coala-bears/issues/1037
+if [[ "$TRAVIS" == "true" && "$TRAVIS_PULL_REQUEST" != "false" ]]; then
+  sed -i.bak '/bears = GitCommitBear/d' .coafile
+fi
+
+docker run --volume="$(pwd):/work" --workdir=/work "$IMAGE_NAME"
