@@ -31,6 +31,8 @@ RUN \
       --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Factory/ \
       # flawfinder
       --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
+      # pg_query
+      --plus-repo http://download.opensuse.org/repositories/home:yuki_is_bored/openSUSE_Tumbleweed/ \
       install --replacefiles \
     bzr \
     cppcheck \
@@ -69,8 +71,6 @@ RUN \
     m4 \
     nodejs7 \
     npm7 \
-    # patch is used by Ruby gem pg_query
-    patch \
     perl-Perl-Critic \
     php7 \
     php7-pear \
@@ -92,6 +92,7 @@ RUN \
     ruby \
     ruby-devel \
     ruby2.2-rubygem-bundler \
+    ruby2.2-rubygem-pg_query \
     ShellCheck \
     subversion \
     tar \
