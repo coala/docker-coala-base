@@ -31,7 +31,10 @@ RUN \
       --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Factory/ \
       # flawfinder
       --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
+      # astyle
+      --plus-repo http://download.opensuse.org/repositories/devel:tools/openSUSE_Tumbleweed/ \
       install --replacefiles \
+    astyle \
     bzr \
     cppcheck \
     curl \
