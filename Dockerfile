@@ -45,7 +45,7 @@ RUN \
     gcc-c++ \
     gcc-fortran \
     git \
-    go \
+    go1.7 \
     mercurial \
     hlint \
     indent \
