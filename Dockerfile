@@ -59,6 +59,7 @@ RUN \
     libopenssl-devel \
     # pcre needed by Julia runtime
     libpcre2-8-0 \
+    libpython3_6m1_0 \
     libxml2-devel \
     # libxml2-tools provides xmllint
     libxml2-tools \
