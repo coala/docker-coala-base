@@ -23,7 +23,7 @@ if [[ "$(pwd)" == "/" ]]; then
     msg "docker run coala/base --volume=\$(pwd):/work --workdir=/work [command]"
     msg "You can also define an additional bear directory, like this:"
     msg "docker run coala/base --volume=\$(pwd):/work" \
-        "--volume\$(pwd)/mybears:$ADDITIONAL_BEARS_DIR --workdir=/work [command]"
+        "--volume=\$(pwd)/mybears:$ADDITIONAL_BEARS_DIR --workdir=/work [command]"
 
     exit 1
 fi
