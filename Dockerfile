@@ -94,7 +94,6 @@ RUN \
     python3 \
     # Needed for proselint
     python3-dbm \
-    python3-pip \
     python3-devel \
     R-base \
     ruby2.2 \
@@ -161,6 +160,7 @@ RUN \
     xorg-x11-fonts \
     xorg-x11-fonts-core \
     && \
+  python3 -m ensurepip && \
   rm -rf \
     /usr/lib64/python2.7/doctest.py \
     /usr/lib64/python2.7/ensurepip/ \
