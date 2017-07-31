@@ -220,6 +220,8 @@ RUN \
   time zypper clean -a && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
+# rocker TAG {{ .image }}_suse
+
 # Coala setup and python deps
 RUN cd / && \
   git clone --depth 1 --branch=$branch https://github.com/coala/coala.git && \
@@ -358,3 +360,5 @@ RUN mkdir -p /root/.local/share/coala-bears/ScalaLintBear && \
 # Entrypoint script
 ADD docker-coala.sh /usr/local/bin/
 CMD ["/usr/local/bin/docker-coala.sh"]
+
+# rocker TAG {{ .image }}
