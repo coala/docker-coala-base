@@ -1,5 +1,5 @@
 sudo: required
-language: generic
+language: go
 
 services:
   - docker
@@ -9,7 +9,10 @@ services:
 env:
   global:
     - SOURCE_BRANCH=$TRAVIS_BRANCH
-    - IMAGE_NAME=coala-docker
+    - IMAGE_NAME=coala-docker:this
+
+before_install:
+  - go get github.com/grammarly/rocker
 
 install:
   - hooks/build
