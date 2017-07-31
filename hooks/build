@@ -9,6 +9,11 @@ fi
 
 ROCKER="$(which rocker | true)"
 
+# On DockerCloud, include the rocker command added in pre_build
+if [[ -z "$ROCKER" && -f "$HOME/goroot/bin/rocker" ]]; then
+  TOOL="$HOME/goroot/bin/rocker"
+fi
+
 if [[ -z "$TOOL" ]]; then
   if [[ -n "$ROCKER" ]]; then
     TOOL="$ROCKER"
