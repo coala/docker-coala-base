@@ -77,8 +77,7 @@ RUN \
     linux-glibc-devel \
     liblua5_3-5 \
     lua53 \
-    lua53-devel \
-    lua53-luarocks \
+    luacheck \
     m4 \
     nltk-data-averaged_perceptron_tagger \
     nltk-data-punkt \
@@ -301,10 +300,6 @@ RUN time julia -e 'Pkg.add("Lint")' && \
     ~/.julia/v0.5/*/.git \
     ~/.julia/v0.5/*/test \
     ~/.julia/v0.5/*/docs && \
-  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
-
-# Lua commands
-RUN time luarocks install luacheck && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # PMD setup
