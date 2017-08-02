@@ -38,6 +38,8 @@ RUN \
       --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
       # astyle
       --plus-repo http://download.opensuse.org/repositories/devel:tools/openSUSE_Tumbleweed/ \
+      # stable packages built for coala
+      --plus-repo http://download.opensuse.org/repositories/home:jayvdb:coala/openSUSE_Tumbleweed/ \
       install --replacefiles \
     astyle \
     bzr \
