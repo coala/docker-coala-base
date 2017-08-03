@@ -38,6 +38,8 @@ RUN \
       --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
       # astyle
       --plus-repo http://download.opensuse.org/repositories/devel:tools/openSUSE_Tumbleweed/ \
+      # Python 3 packages
+      --plus-repo http://download.opensuse.org/repositories/devel:languages:python3/openSUSE_Tumbleweed/ \
       # stable packages built for coala
       --plus-repo http://download.opensuse.org/repositories/home:jayvdb:coala/openSUSE_Tumbleweed/ \
       install --replacefiles \
@@ -78,6 +80,8 @@ RUN \
     lua53-devel \
     lua53-luarocks \
     m4 \
+    nltk-data-averaged_perceptron_tagger \
+    nltk-data-punkt \
     nodejs7 \
     npm7 \
     # patch is used by Ruby gem pg_query
@@ -99,6 +103,7 @@ RUN \
     python3-brotlipy \
     # Needed for proselint
     python3-dbm \
+    python3-nltk \
     python3-pip \
     python3-devel \
     R-base \
@@ -170,6 +175,9 @@ RUN \
     xorg-x11-fonts \
     xorg-x11-fonts-core \
     && \
+  # Disable nltk downloader
+  printf 'def download(*args): pass\ndownload_shell = download\n' \
+    > /usr/lib/python3.6/site-packages/nltk/downloader.py && \
   rm -rf \
     /usr/lib64/python2.7/doctest.py \
     /usr/lib64/python2.7/ensurepip/ \
@@ -224,8 +232,6 @@ RUN cd / && \
     -e /coala-quickstart \
     -r /coala/test-requirements.txt && \
   cd coala-bears && \
-  # NLTK data
-  time python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger && \
   # Remove Ruby directive from Gemfile as this image has 2.2.5
   sed -i '/^ruby/d' Gemfile && \
   # Ruby dependencies
