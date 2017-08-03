@@ -29,8 +29,6 @@ RUN \
       --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
       # luarocks
       --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Factory/ \
-      # brotlipy
-      --plus-repo http://download.opensuse.org/repositories/devel:languages:python/openSUSE_Tumbleweed/ \
       # ruby 2.2
       --plus-repo http://download.opensuse.org/repositories/devel:languages:ruby/openSUSE_Tumbleweed/ \
       # flawfinder
@@ -56,6 +54,8 @@ RUN \
     libclang3_8 \
     # libcurl-devel needed by R httr
     libcurl-devel \
+    # Needed for HTTpolice
+    libffi-devel \
     # icu needed by R stringi
     libicu-devel \
     libopenssl-devel \
@@ -92,8 +92,6 @@ RUN \
     # Used by bzr, mecurial, hgext, and flawfinder
     python \
     python3 \
-    # Needed for HTTpolice
-    python3-brotlipy \
     # Needed for proselint
     python3-dbm \
     python3-pip \
