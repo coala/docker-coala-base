@@ -18,6 +18,7 @@ RUN mkdir -p /root/.local/share/coala && \
 RUN \
   zypper addlock \
     postfix \
+    'julia < 0.6' 'julia >= 0.7' julia-compat \
     && \
   # Remove unnecessary repos to avoid refreshes
   zypper removerepo 'NON-OSS' && \
