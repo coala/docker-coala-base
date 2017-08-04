@@ -295,13 +295,15 @@ RUN source /etc/profile.d/go.sh && time go get -u \
 
 # Julia setup
 RUN time julia -e 'Pkg.add("Lint")' && \
-  rm -rf \
-    ~/.julia/.cache \
-    ~/.julia/v0.5/.cache \
-    ~/.julia/v0.5/METADATA \
-    ~/.julia/v0.5/*/.git \
-    ~/.julia/v0.5/*/test \
-    ~/.julia/v0.5/*/docs && \
+  rm -rf ~/.julia/.cache && \
+  (cd ~/.julia/v0.* && \
+   rm -rf \
+     .cache \
+     METADATA \
+     .git \
+     */test \
+     */docs \
+  ) && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # PMD setup
