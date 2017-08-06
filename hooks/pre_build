@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e -x
+
+# This is run on DockerCloud, and not run on Travis
+
+export DEBIAN_FRONTEND=noninteractive
+export GOPATH=$HOME/goroot
+
+time apt-get --yes install golang-1.6-go
+time /usr/lib/go-1.6/bin/go get github.com/grammarly/rocker

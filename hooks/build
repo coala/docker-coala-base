@@ -1,9 +1,40 @@
 #!/usr/bin/env bash
 
+set -e -x
+
+if [[ "${IMAGE_NAME/:/}" == "${IMAGE_NAME}" ]]; then
+  # DockerCloud uses :this for pull requests
+  IMAGE_NAME="${IMAGE_NAME}:this"
+fi
+
+ROCKER="$(which rocker | true)"
+
+# On DockerCloud, include the rocker command added in pre_build
+if [[ -z "$ROCKER" && -f "$HOME/goroot/bin/rocker" ]]; then
+  TOOL="$HOME/goroot/bin/rocker"
+fi
+
+if [[ -z "$TOOL" ]]; then
+  if [[ -n "$ROCKER" ]]; then
+    TOOL="$ROCKER"
+  else
+    TOOL=docker
+  fi
+fi
+
+if [[ "${TOOL%docker}" != "$TOOL" ]]; then
+  TOOL_ARGS="-t $IMAGE_NAME"
+elif [[ "${TOOL%rocker}" != "$TOOL" ]]; then
+  TOOL_ARGS="--var image=$IMAGE_NAME"
+  sed -i 's/^# rocker \([A-Z]*\) /\1 /' Dockerfile
+fi
+
 COALA_BRANCH=$(python guess_branch.py "$SOURCE_BRANCH")
 
 echo "Building coala branch $COALA_BRANCH for docker branch $SOURCE_BRANCH"
+echo "as image ${IMAGE_NAME}, using ${TOOL} on $(uname -a)."
 
-docker build -f Dockerfile \
+$TOOL build \
+  -f Dockerfile \
   --build-arg=branch="$COALA_BRANCH" \
-  -t "$IMAGE_NAME" .
+  $TOOL_ARGS .
