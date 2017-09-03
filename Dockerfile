@@ -18,20 +18,33 @@ RUN mkdir -p /root/.local/share/coala && \
 RUN \
   zypper addlock \
     postfix \
+    'julia < 0.6' 'julia >= 0.7' julia-compat \
     && \
   # Remove unnecessary repos to avoid refreshes
   zypper removerepo 'NON-OSS' && \
   # Package dependencies
-  time zypper --no-gpg-checks --non-interactive \
+  echo 'Running zypper install ...' && \
+  (time zypper -vv --no-gpg-checks --non-interactive \
       # nodejs 7
       --plus-repo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Tumbleweed/ \
       # science contains latest Julia
       --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
       # luarocks
       --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Factory/ \
+      # brotlipy
+      --plus-repo http://download.opensuse.org/repositories/devel:languages:python/openSUSE_Tumbleweed/ \
+      # ruby 2.2
+      --plus-repo http://download.opensuse.org/repositories/devel:languages:ruby/openSUSE_Tumbleweed/ \
       # flawfinder
       --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
-      install --replacefiles \
+      # astyle
+      --plus-repo http://download.opensuse.org/repositories/devel:tools/openSUSE_Tumbleweed/ \
+      # Python 3 packages
+      --plus-repo http://download.opensuse.org/repositories/devel:languages:python3/openSUSE_Tumbleweed/ \
+      # stable packages built for coala
+      --plus-repo http://download.opensuse.org/repositories/home:jayvdb:coala/openSUSE_Tumbleweed/ \
+      install --replacefiles --download-in-advance \
+    astyle \
     bzr \
     cppcheck \
     curl \
@@ -40,7 +53,7 @@ RUN \
     gcc-c++ \
     gcc-fortran \
     git \
-    go \
+    go1.7 \
     mercurial \
     hlint \
     indent \
@@ -54,6 +67,7 @@ RUN \
     libopenssl-devel \
     # pcre needed by Julia runtime
     libpcre2-8-0 \
+    libpython3_6m1_0 \
     libxml2-devel \
     # libxml2-tools provides xmllint
     libxml2-tools \
@@ -64,9 +78,10 @@ RUN \
     linux-glibc-devel \
     liblua5_3-5 \
     lua53 \
-    lua53-devel \
-    lua53-luarocks \
+    luacheck \
     m4 \
+    nltk-data-averaged_perceptron_tagger \
+    nltk-data-punkt \
     nodejs7 \
     npm7 \
     # patch is used by Ruby gem pg_query
@@ -84,19 +99,26 @@ RUN \
     # Used by bzr, mecurial, hgext, and flawfinder
     python \
     python3 \
+    # Needed for HTTpolice
+    python3-brotlipy \
     # Needed for proselint
     python3-dbm \
+    python3-nltk \
     python3-pip \
     python3-devel \
     R-base \
-    ruby \
-    ruby-devel \
+    ruby2.2 \
+    ruby2.2-devel \
     ruby2.2-rubygem-bundler \
     ShellCheck \
     subversion \
     tar \
     texlive-chktex \
-    unzip && \
+    unzip \
+      > /tmp/zypper.out \
+    || (cat /tmp/zypper.out && false)) \
+    && \
+  grep -E '(new packages to install|^Retrieving: )' /tmp/zypper.out && \
   time rpm -e -f --nodeps -v \
     aaa_base \
     cron \
@@ -131,7 +153,11 @@ RUN \
     perl-X11-Protocol \
     php7-zlib \
     python-curses \
+    python2-packaging \
+    python2-Pygments \
+    python2-pyparsing \
     python-rpm-macros \
+    python2-setuptools \
     python-xml \
     R-core-doc \
     rsync \
@@ -149,6 +175,9 @@ RUN \
     xorg-x11-fonts \
     xorg-x11-fonts-core \
     && \
+  # Disable nltk downloader
+  printf 'def download(*args): pass\ndownload_shell = download\n' \
+    > /usr/lib/python3.6/site-packages/nltk/downloader.py && \
   rm -rf \
     /usr/lib64/python2.7/doctest.py \
     /usr/lib64/python2.7/ensurepip/ \
@@ -192,6 +221,8 @@ RUN \
   time zypper clean -a && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
+# rocker TAG {{ .image }}_suse
+
 # Coala setup and python deps
 RUN cd / && \
   git clone --depth 1 --branch=$branch https://github.com/coala/coala.git && \
@@ -203,8 +234,6 @@ RUN cd / && \
     -e /coala-quickstart \
     -r /coala/test-requirements.txt && \
   cd coala-bears && \
-  # NLTK data
-  time python3 -m nltk.downloader punkt maxent_treebank_pos_tagger averaged_perceptron_tagger && \
   # Remove Ruby directive from Gemfile as this image has 2.2.5
   sed -i '/^ruby/d' Gemfile && \
   # Ruby dependencies
@@ -267,17 +296,15 @@ RUN source /etc/profile.d/go.sh && time go get -u \
 
 # Julia setup
 RUN time julia -e 'Pkg.add("Lint")' && \
-  rm -rf \
-    ~/.julia/.cache \
-    ~/.julia/v0.5/.cache \
-    ~/.julia/v0.5/METADATA \
-    ~/.julia/v0.5/*/.git \
-    ~/.julia/v0.5/*/test \
-    ~/.julia/v0.5/*/docs && \
-  find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
-
-# Lua commands
-RUN time luarocks install luacheck && \
+  rm -rf ~/.julia/.cache && \
+  (cd ~/.julia/v0.* && \
+   rm -rf \
+     .cache \
+     METADATA \
+     .git \
+     */test \
+     */docs \
+  ) && \
   find /tmp -mindepth 1 -prune -exec rm -rf '{}' '+'
 
 # PMD setup
@@ -336,3 +363,5 @@ RUN mkdir -p /root/.local/share/coala-bears/ScalaLintBear && \
 # Entrypoint script
 ADD docker-coala.sh /usr/local/bin/
 CMD ["/usr/local/bin/docker-coala.sh"]
+
+# rocker TAG {{ .image }}

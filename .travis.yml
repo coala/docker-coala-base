@@ -1,5 +1,5 @@
 sudo: required
-language: generic
+language: go
 
 services:
   - docker
@@ -9,39 +9,17 @@ services:
 env:
   global:
     - SOURCE_BRANCH=$TRAVIS_BRANCH
-    - IMAGE_NAME=coala-docker
+    - IMAGE_NAME=coala-docker:this
+
+before_install:
+  - go get github.com/grammarly/rocker
 
 install:
   - hooks/build
 
 script:
   - docker images
-  - >
-    docker run -t -i --volume=$(pwd)/tests:/work coala-docker /bin/sh -c "
-      set -e -x;
-      /work/pytest.sh;
-      /work/vcs.sh;
-      /work/opensuse.sh;
-    "
-  # Verify MarkdownBear works outside of coala-bears directory.
-  # See https://github.com/coala/coala-bears/issues/1235
-  - >
-    docker run -t -i coala-docker /bin/sh -c "
-      cd /tmp;
-      echo foo > foo.md;
-      coala --non-interactive --no-config --bears MarkdownBear --files foo.md;
-    "
-  - /bin/sh -c "! docker run coala-docker"
-  - docker run --volume=$(pwd)/.ci/sample:/work --workdir=/work coala-docker
-  - ls -la ./.ci/sample/.coafile
-  - sudo chown $USER ./.ci/sample/.coafile
-  - echo -e
-      "[fail]\nbears = NoCommentsBear\nfile = **.py" >> ./.ci/sample/.coafile
-  - /bin/sh -c "
-      ! docker run
-        --volume=$(pwd)/.ci/sample:/work
-        --volume=$(pwd)/.ci/bears:/additional_bears
-        --workdir=/work coala-docker
-    "
+  - hooks/test
+
 notifications:
   email: false
