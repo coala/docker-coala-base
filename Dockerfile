@@ -1,5 +1,5 @@
 FROM opensuse:tumbleweed
-MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
+LABEL MAINTAINER="Fabian Neuschmidt <fabian@neuschmidt.de>"
 
 ARG branch=master
 RUN echo branch=$branch
