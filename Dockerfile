@@ -14,6 +14,7 @@ ENV LANG=en_US.UTF-8 \
 RUN mkdir -p /root/.local/share/coala && \
   ln -s /root/.local/share/coala /cache
 
+ADD packages.txt .
 
 RUN \
   zypper addlock \
@@ -24,156 +25,11 @@ RUN \
   zypper removerepo 'NON-OSS' && \
   # Package dependencies
   echo 'Running zypper install ...' && \
-  (time zypper -vv --no-gpg-checks --non-interactive \
-      # nodejs 7
-      --plus-repo http://download.opensuse.org/repositories/devel:languages:nodejs/openSUSE_Tumbleweed/ \
-      # science contains latest Julia
-      --plus-repo http://download.opensuse.org/repositories/science/openSUSE_Tumbleweed/ \
-      # luarocks
-      --plus-repo http://download.opensuse.org/repositories/devel:languages:lua/openSUSE_Factory/ \
-      # brotlipy
-      --plus-repo http://download.opensuse.org/repositories/devel:languages:python/openSUSE_Tumbleweed/ \
-      # ruby 2.2
-      --plus-repo http://download.opensuse.org/repositories/devel:languages:ruby/openSUSE_Tumbleweed/ \
-      # flawfinder
-      --plus-repo http://download.opensuse.org/repositories/home:illuusio/openSUSE_Tumbleweed/ \
-      # astyle
-      --plus-repo http://download.opensuse.org/repositories/devel:tools/openSUSE_Tumbleweed/ \
-      # Python 3 packages
-      --plus-repo http://download.opensuse.org/repositories/devel:languages:python3/openSUSE_Tumbleweed/ \
-      # stable packages built for coala
-      --plus-repo http://download.opensuse.org/repositories/home:jayvdb:coala/openSUSE_Tumbleweed/ \
-      install --replacefiles --download-in-advance \
-    astyle \
-    bzr \
-    cppcheck \
-    curl \
-    expect \
-    flawfinder \
-    gcc-c++ \
-    gcc-fortran \
-    git \
-    go1.7 \
-    mercurial \
-    hlint \
-    indent \
-    java-1_8_0-openjdk-headless \
-    julia \
-    libclang3_8 \
-    # libcurl-devel needed by R httr
-    libcurl-devel \
-    # icu needed by R stringi
-    libicu-devel \
-    libopenssl-devel \
-    # pcre needed by Julia runtime
-    libpcre2-8-0 \
-    libpython3_6m1_0 \
-    libxml2-devel \
-    # libxml2-tools provides xmllint
-    libxml2-tools \
-    libxslt-devel \
-    # needed for licensecheck
-    devscripts \
-    # linux-glibc-devel needed for Ruby native extensions
-    linux-glibc-devel \
-    liblua5_3-5 \
-    lua53 \
-    luacheck \
-    m4 \
-    nltk-data-averaged_perceptron_tagger \
-    nltk-data-punkt \
-    nodejs7 \
-    npm7 \
-    # patch is used by Ruby gem pg_query
-    patch \
-    perl-Perl-Critic \
-    php7 \
-    php7-pear \
-    # Needed for PHPMD
-    php7-dom \
-    php7-imagick \
-    # Needed for PHP CodeSniffer
-    php7-pear-Archive_Tar \
-    php7-tokenizer \
-    php7-xmlwriter \
-    # Used by bzr, mecurial, hgext, and flawfinder
-    python \
-    python3 \
-    # Needed for HTTpolice
-    python3-brotlipy \
-    # Needed for proselint
-    python3-dbm \
-    python3-nltk \
-    python3-pip \
-    python3-devel \
-    R-base \
-    ruby2.2 \
-    ruby2.2-devel \
-    ruby2.2-rubygem-bundler \
-    ShellCheck \
-    subversion \
-    tar \
-    texlive-chktex \
-    unzip \
-      > /tmp/zypper.out \
+  (time zypper -vv --no-gpg-checks --non-interactive $(sed -e 's/#.*$//' -e '/^$/d' packages.txt) > /tmp/zypper.out \
     || (cat /tmp/zypper.out && false)) \
     && \
   grep -E '(new packages to install|^Retrieving: )' /tmp/zypper.out && \
-  time rpm -e -f --nodeps -v \
-    aaa_base \
-    cron \
-    cronie \
-    dbus-1 \
-    fdupes \
-    fontconfig \
-    fonts-config \
-    kbd \
-    kmod \
-    libICE6 \
-    libthai-data \
-    libxcb1 libxcb-render0 libxcb-shm0 \
-    libX11-6 libX11-data \
-    libXau6 \
-    libXext6 \
-    libXft2 \
-    libXmu6 \
-    libXmuu1 \
-    libXrender1 \
-    libXss1 libXt6 \
-    lksctp-tools \
-    logrotate \
-    ncurses-utils \
-    openssh \
-    openslp \
-    perl-File-ShareDir \
-    perl-Net-DBus \
-    perl-Pod-Coverage \
-    perl-Test-Pod \
-    perl-Test-Pod-Coverage \
-    perl-X11-Protocol \
-    php7-zlib \
-    python-curses \
-    python2-packaging \
-    python2-Pygments \
-    python2-pyparsing \
-    python-rpm-macros \
-    python2-setuptools \
-    python-xml \
-    R-core-doc \
-    rsync \
-    systemd \
-    texlive-gsftopk \
-    texlive-gsftopk-bin \
-    texlive-kpathsea \
-    texlive-kpathsea-bin \
-    texlive-tetex-bin \
-    texlive-texconfig \
-    texlive-texconfig-bin \
-    texlive-texlive.infra \
-    texlive-updmap-map \
-    xhost \
-    xorg-x11-fonts \
-    xorg-x11-fonts-core \
+  time rpm -e -f --nodeps -v $(sed -e 's/#.*$//' -e '/^$/d' unused-packages.txt) \
     && \
   # Disable nltk downloader
   printf 'def download(*args): pass\ndownload_shell = download\n' \
