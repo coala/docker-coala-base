@@ -1,5 +1,5 @@
 FROM opensuse:tumbleweed
-MAINTAINER Fabian Neuschmidt fabian@neuschmidt.de
+MAINTAINER The coala developers - coala-devel@googlegroups.com
 
 ARG branch=master
 RUN echo branch=$branch
